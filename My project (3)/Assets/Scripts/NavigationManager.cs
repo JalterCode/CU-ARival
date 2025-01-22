@@ -1,81 +1,42 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.UI;
-using TMPro;
 
-public class NavigationManager : MonoBehaviour
+public class AnimationSCript : MonoBehaviour
 {
-    public static NavigationManager instance;
-    public Transform startingPoint;
-    private Transform endPoint;
-    public LineRenderer lineRenderer;
-    float elapsed;
-    public NavMeshPath path;
+    [SerializeField] private Animator animator;
+    [SerializeField] private Animator navTarget;
 
-    public TMP_Text meters;
+    
 
+    public void ButtonPress(){
+        animator.SetBool("ButtonPress",true);
+        animator.SetBool("NavigationTargetSelected",false);
+        animator.SetBool("pullDownPressed", false);
+    }
+    public void DropDownButtonPress(){
+        animator.SetBool("pullDownPressed",true);
+        animator.SetBool("NavigationTargetSelected",true);
+        animator.SetBool("ButtonPress", false);
+    }
+
+    public void navigationTargetSelected(){
+        animator.SetBool("NavigationTargetSelected",true);
+        animator.SetBool("ButtonPress",false);
+        animator.SetBool("pullDownPressed",true);
+        navTarget.SetBool("locationPressed",true);
+
+    }
+    // Start is called before the first frame update
     void Start()
     {
-        path = new NavMeshPath();
-        elapsed = 0.0f;
-        instance = this;
-
-        GameObject roomObject = GameObject.Find(findRoomScript.GetDestination());
-        if (roomObject != null)
-        {
-            endPoint = roomObject.transform;
-        }
-        meters.text = $"{CalculatePathDistance(path):F1} m";
+        animator.SetBool("ButtonPress",false);
     }
 
+    // Update is called once per frame
     void Update()
     {
-        elapsed += Time.deltaTime;
-        if (elapsed > 1.0f)
-        {
-            elapsed -= 1.0f;
-            if (endPoint != null)
-            {
-                NavMesh.CalculatePath(startingPoint.position, endPoint.position, NavMesh.AllAreas, path);
-                lineRenderer.positionCount = path.corners.Length;
-                lineRenderer.SetPositions(path.corners);
-
-                float distance = CalculatePathDistance(path);
-                meters.text = $"{distance:F1} m"; 
-            }
-        }
-    }
-
-    public void UpdateNavigationTarget(string roomName)
-    {
-        
-        GameObject roomObject = GameObject.Find(roomName);
-
-        if (roomObject != null)
-        {
-            endPoint = roomObject.transform;  
-            Debug.Log("Navigation room updated: " + roomName);
-        }
-        else
-        {
-            Debug.LogError("Room not found: " + roomName);
-        }
-    }
-
-    private float CalculatePathDistance(NavMeshPath navPath)
-    {
-        if (navPath.corners.Length < 2)
-        {
-            return 0f;
-        }
-
-        float totalDistance = 0f;
-
-        for (int i = 0; i < navPath.corners.Length - 1; i++)
-        {
-            totalDistance += Vector3.Distance(navPath.corners[i], navPath.corners[i + 1]);
-        }
-
-        return totalDistance;
+        Debug.Log("ButtonPress: " + animator.GetBool("ButtonPress"));
     }
 }
