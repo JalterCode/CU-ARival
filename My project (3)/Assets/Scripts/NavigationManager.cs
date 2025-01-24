@@ -16,6 +16,8 @@ public class NavigationManager : MonoBehaviour
     public NavMeshPath path;
     [SerializeField] private Animator animator;
 
+    [SerializeField] private Animator scanUI;
+
     [SerializeField] private ARTrackedImageManager trackedImageManager;
     private XROrigin xrOrigin; // Reference to XR Origin
 
@@ -60,6 +62,7 @@ public class NavigationManager : MonoBehaviour
 
         foreach (var newImage in eventArgs.added)
         {
+            scanUI.SetBool("Scanned",true);
             string imageName = newImage.referenceImage.name;
             GameObject targetObject = GameObject.Find(imageName);
 
@@ -81,6 +84,7 @@ public class NavigationManager : MonoBehaviour
             {
                 Debug.LogError($"Could not find object named: {imageName}");
             }
+
         }
     }
 
