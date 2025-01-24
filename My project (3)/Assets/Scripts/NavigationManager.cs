@@ -3,6 +3,8 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 using Unity.XR.CoreUtils; // For XR Origin
+using TMPro;
+using System.Collections;
 
 public class NavigationManager : MonoBehaviour
 {
@@ -16,6 +18,13 @@ public class NavigationManager : MonoBehaviour
 
     [SerializeField] private ARTrackedImageManager trackedImageManager;
     private XROrigin xrOrigin; // Reference to XR Origin
+
+    // distance management
+    public Button button; // Assign your button in the inspector
+    public TextMeshProUGUI textMeshPro; 
+    private bool isUpdating = false;
+    private Text distanceText;
+    private WaitForSeconds waitTime;
 
     void Start()
     {
@@ -35,6 +44,10 @@ public class NavigationManager : MonoBehaviour
         {
             endPoint = roomObject.transform;
         }
+        //distance check
+        distanceText = GetComponent<Text>();
+        waitTime = new WaitForSeconds(0.5f); 
+        button.onClick.AddListener(StartUpdatingDistance);
     }
 
     private void OnEnable() => trackedImageManager.trackedImagesChanged += OnChanged;
@@ -98,6 +111,48 @@ public class NavigationManager : MonoBehaviour
         else
         {
             Debug.LogError("Room not found: " + roomName);
+        }
+    }
+    //DISTANCE CHECK
+
+    void StartUpdatingDistance()
+    {
+        textMeshPro.text = "PLEASE";
+        if (!isUpdating)
+        {
+            isUpdating = true;
+            StartCoroutine(UpdateDistance());
+        }
+    }
+   IEnumerator UpdateDistance(){
+
+        while (true) 
+        {
+            if (endPoint != null)
+            {
+                NavMesh.CalculatePath(startingPoint.position, endPoint.position, NavMesh.AllAreas, path);
+
+                if (path.status == NavMeshPathStatus.PathComplete)
+                {
+                    float pathLength = 0;
+                    for (int i = 0; i < path.corners.Length - 1; i++)
+                    {
+                        pathLength += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+                    }
+
+                    textMeshPro.text =  pathLength.ToString("F1") + " m";
+                }
+                else
+                {
+                    textMeshPro.text = "No path found.";
+                }
+            }
+            else
+            {
+                textMeshPro.text = "No destination set.";
+            }
+
+            yield return waitTime; 
         }
     }
 }
