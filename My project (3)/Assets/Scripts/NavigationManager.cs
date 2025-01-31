@@ -20,6 +20,8 @@ public class NavigationManager : MonoBehaviour
 
     [SerializeField] private ARTrackedImageManager trackedImageManager;
     private XROrigin xrOrigin; // Reference to XR Origin
+    private bool isScanningEnabled = true;
+
 
     // distance management
     public Button button; // Assign your button in the inspector
@@ -58,6 +60,8 @@ public class NavigationManager : MonoBehaviour
 
     private void OnChanged(ARTrackedImagesChangedEventArgs eventArgs)
     {
+        if (!isScanningEnabled) return;
+
         Debug.Log("Image detected");
 
         foreach (var newImage in eventArgs.added)
@@ -84,6 +88,9 @@ public class NavigationManager : MonoBehaviour
             {
                 Debug.LogError($"Could not find object named: {imageName}");
             }
+        
+            trackedImageManager.enabled = false;
+            isScanningEnabled = false;
 
         }
     }
@@ -159,4 +166,11 @@ public class NavigationManager : MonoBehaviour
             yield return waitTime; 
         }
     }
+
+    public void EnableScanning(){
+        trackedImageManager.enabled = true;
+        isScanningEnabled = true;
+        scanUI.SetBool("Scanned", false);
+    }
+
 }
