@@ -36,6 +36,8 @@ public class findRoomScript : MonoBehaviour
             return;
         }
 
+        GenerateButtons();
+
         Button5201.onClick.AddListener(() => OnNavigateButtonClicked(Button5201));
         Button5107.onClick.AddListener(() => OnNavigateButtonClicked(Button5107));
         Button5111.onClick.AddListener(() => OnNavigateButtonClicked(Button5111));
