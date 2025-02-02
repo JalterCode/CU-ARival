@@ -75,11 +75,11 @@ public class findRoomScript : MonoBehaviour
             {
                 Button newButton = Instantiate(buttonPrefab, panel);
                 newButton.name = roomName;
-                newButton.GetComponentInChildren<TMP_Text>().text = roomName;
+                newButton.GetComponentInChildren<TMP_Text>().text = roomName.Replace("Button", "");
 
                 Button lastButton = roomButtons.Values.Last();
                 RectTransform lastRect = lastButton.GetComponent<RectTransform>();
-                float newY = lastRect.anchoredPosition.y - Yoffset;
+                float newY = lastRect.anchoredPosition.y + Yoffset;
 
                 RectTransform rectTransform = newButton.GetComponent<RectTransform>();
                 Vector3 originalPosition = rectTransform.anchoredPosition;
