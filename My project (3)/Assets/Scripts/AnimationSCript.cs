@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class AnimationSCript : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
-    [SerializeField] private Animator navTarget;
+    public Animator animator;
+    public Animator navTarget;
 
     
 
