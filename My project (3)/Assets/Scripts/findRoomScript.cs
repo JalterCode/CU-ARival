@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
+using System.Collections.Generic;
 
 public class findRoomScript : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class findRoomScript : MonoBehaviour
     public Button Button5111;
     public Button Button5105;
     public Button Button5101;
+
+    public List<Button> rooms;
     //public TMP_Dropdown dropDown;
     private static string destination;
     private Button clickedButton; 
@@ -17,6 +21,7 @@ public class findRoomScript : MonoBehaviour
 
     void Start()
     {
+
         if (Button5201 == null)
         {
             Debug.LogError("Button5201 is not assigned!");
