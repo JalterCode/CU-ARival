@@ -12,7 +12,6 @@ public class AnimationSCript : MonoBehaviour
 
     public void ButtonPress(){
         animator.SetBool("ButtonPress",true);
-        animator.SetBool("NavigationTargetSelected",false);
         animator.SetBool("pullDownPressed", false);
     }
     public void DropDownButtonPress(){

@@ -171,6 +171,8 @@ public class NavigationManager : MonoBehaviour
         trackedImageManager.enabled = true;
         isScanningEnabled = true;
         scanUI.SetBool("Scanned", false);
+        animator.SetBool("ButtonPress",false);
+        scanUI.SetBool("CamButtonPressed",true);
     }
 
 }
