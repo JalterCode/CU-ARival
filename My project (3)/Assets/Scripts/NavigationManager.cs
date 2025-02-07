@@ -116,11 +116,7 @@ public class NavigationManager : MonoBehaviour
         GameObject roomObject = GameObject.Find(roomName);
 
 
-        if (roomObject.gameObject.name.StartsWith("6")) {
-            endPoint = GameObject.Find("stairs5").transform;
-            Debug.Log("Navigation room updated: " + roomName);
-        }
-        else if (roomObject != null)
+        if (roomObject != null)
         {
             endPoint = roomObject.transform;
             Debug.Log("Navigation room updated: " + roomName);
