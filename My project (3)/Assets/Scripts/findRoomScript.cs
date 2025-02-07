@@ -64,6 +64,9 @@ public class findRoomScript : MonoBehaviour
         clickedButton = button; 
         string selectedRoom = GetRoom();
         Debug.Log("Selected Room: " + selectedRoom);
+        if(selectedRoom.StartsWith("6")) {
+            selectedRoom = "stairs5";
+        }
 
         // Pass the selected room to the NavigationManager
         SetDestination(selectedRoom.Replace(" ", "").Trim());

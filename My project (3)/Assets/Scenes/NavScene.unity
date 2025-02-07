@@ -1116,10 +1116,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 331264289}
-    - targetCorrespondingSourceObject: {fileID: 2512387470528047719, guid: 48cb3fb68c91eb94999fd99957eb0cae,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 331264288}
   m_SourcePrefab: {fileID: 100100000, guid: 48cb3fb68c91eb94999fd99957eb0cae, type: 3}
 --- !u!114 &331264286 stripped
 MonoBehaviour:
@@ -1139,18 +1135,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 331264285}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &331264288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 331264287}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 854a578d10c6345479495a165abd5f5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &331264289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2815,7 +2799,7 @@ MonoBehaviour:
   Button5111: {fileID: 1354326742}
   Button5105: {fileID: 300019996}
   Button5101: {fileID: 844580819}
-  Button6107: {fileID: 0}
+  Button6107: {fileID: 575668450}
   locationText: {fileID: 1230409670}
 --- !u!1 &1017360308
 GameObject:
@@ -5652,7 +5636,7 @@ MonoBehaviour:
   Button5105: {fileID: 300019996}
   Button5101: {fileID: 844580819}
   Button6107: {fileID: 575668450}
-  locationText: {fileID: 0}
+  locationText: {fileID: 1230409670}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
