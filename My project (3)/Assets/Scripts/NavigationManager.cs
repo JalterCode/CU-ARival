@@ -107,6 +107,7 @@ public class NavigationManager : MonoBehaviour
                 NavMesh.CalculatePath(startingPoint.position, endPoint.position, NavMesh.AllAreas, path);
                 lineRenderer.positionCount = path.corners.Length;
                 lineRenderer.SetPositions(path.corners);
+                Debug.Log($"Path status: {path.status}, Corners count: {path.corners.Length}");
             }
         }
     }
