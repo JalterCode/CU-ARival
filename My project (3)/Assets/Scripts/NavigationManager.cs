@@ -59,42 +59,42 @@ public class NavigationManager : MonoBehaviour
     private void OnDisable() => trackedImageManager.trackedImagesChanged -= OnChanged;
 
     private void OnChanged(ARTrackedImagesChangedEventArgs eventArgs)
+{
+    if (!isScanningEnabled) return;
+
+    Debug.Log("Image detected");
+
+    foreach (var newImage in eventArgs.added)
     {
-        if (!isScanningEnabled) return;
+        scanUI.SetBool("Scanned", true);
+        string imageName = newImage.referenceImage.name;
+        GameObject targetObject = GameObject.Find(imageName);
 
-        Debug.Log("Image detected");
-
-        foreach (var newImage in eventArgs.added)
+        if (targetObject != null)
         {
-            scanUI.SetBool("Scanned",true);
-            string imageName = newImage.referenceImage.name;
-            GameObject targetObject = GameObject.Find(imageName);
+            // Calculate the offset between the detected image and the target object
+            Vector3 offset = targetObject.transform.position - newImage.transform.position;
 
-            if (targetObject != null)
-            {
-                // Calculate the position difference between the detected image and the target object
-                Vector3 offsetPosition = targetObject.transform.position - newImage.transform.position;
-                Quaternion offsetRotation = targetObject.transform.rotation * Quaternion.Inverse(newImage.transform.rotation);
+            // Shift the XR Origin to align the AR space with the real-world plaque
+            xrOrigin.transform.position += offset;
 
-                // Manually update the XR Origin's position and rotation
-                xrOrigin.transform.position += offsetPosition;
-                xrOrigin.transform.rotation = offsetRotation;
+            // Optionally, adjust rotation
+            Quaternion rotationOffset = Quaternion.Inverse(newImage.transform.rotation) * targetObject.transform.rotation;
+            xrOrigin.transform.rotation *= rotationOffset;
 
-                animator.SetBool("ButtonPress",true);
+            animator.SetBool("ButtonPress", true);
 
-                Debug.Log($"XR Origin manually adjusted to align with {imageName} location.");
-            }
-            else
-            {
-                Debug.LogError($"Could not find object named: {imageName}");
-            }
-        
-            trackedImageManager.enabled = false;
-            isScanningEnabled = false;
-            //s
-
+            Debug.Log($"XR Origin adjusted to align with {imageName} location.");
         }
+        else
+        {
+            Debug.LogError($"Could not find object named: {imageName}");
+        }
+
+        trackedImageManager.enabled = false;
+        isScanningEnabled = false;
     }
+}
 
     void Update()
     {
