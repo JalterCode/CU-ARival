@@ -91,6 +91,7 @@ public class NavigationManager : MonoBehaviour
         
             trackedImageManager.enabled = false;
             isScanningEnabled = false;
+            //s
 
         }
     }
