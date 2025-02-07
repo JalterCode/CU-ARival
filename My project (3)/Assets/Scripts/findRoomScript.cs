@@ -2,13 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-<<<<<<< HEAD
 using System.Collections.Generic;
 using System.Linq;
-=======
-using System.Collections;
-using System.Collections.Generic;
->>>>>>> CameraButton
 
 public class findRoomScript : MonoBehaviour
 {
@@ -18,14 +13,10 @@ public class findRoomScript : MonoBehaviour
     public Button Button5105;
     public Button Button5101;
 
-<<<<<<< HEAD
     //Making this shi better
     public SortedDictionary<string, Button> roomButtons = new SortedDictionary<string, Button>();
     public RectTransform panel;
     public Button buttonPrefab;
-=======
-    public List<Button> rooms;
->>>>>>> CameraButton
     //public TMP_Dropdown dropDown;
     private static string destination;
     private Button clickedButton; 
