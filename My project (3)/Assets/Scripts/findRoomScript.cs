@@ -37,7 +37,7 @@ public class findRoomScript : MonoBehaviour
             return;
         }
 
-        GenerateButtons();
+        // GenerateButtons();
 
         Button5201.onClick.AddListener(() => OnNavigateButtonClicked(Button5201));
         Button5107.onClick.AddListener(() => OnNavigateButtonClicked(Button5107));
@@ -84,7 +84,7 @@ public class findRoomScript : MonoBehaviour
 
                 RectTransform rectTransform = newButton.GetComponent<RectTransform>();
                 Vector3 originalPosition = rectTransform.anchoredPosition;
-                rectTransform.anchoredPosition = new Vector3(originalPosition.x, newY, originalPosition.z);
+                newButton.transform.position = new Vector3(originalPosition.x, newY, originalPosition.z);
 
                 
                 newButton.onClick.AddListener(() => OnNavigateButtonClicked(newButton));
