@@ -10,6 +10,7 @@ public class findRoomScript : MonoBehaviour
     public Button Button5111;
     public Button Button5105;
     public Button Button5101;
+    public Button Button6107;
     //public TMP_Dropdown dropDown;
     private static string destination;
     private Button clickedButton; 
@@ -34,6 +35,7 @@ public class findRoomScript : MonoBehaviour
         Button5111.onClick.AddListener(() => OnNavigateButtonClicked(Button5111));
         Button5105.onClick.AddListener(() => OnNavigateButtonClicked(Button5105));
         Button5101.onClick.AddListener(() => OnNavigateButtonClicked(Button5101));
+        Button6107.onClick.AddListener(() => OnNavigateButtonClicked(Button6107));
         
         
         
