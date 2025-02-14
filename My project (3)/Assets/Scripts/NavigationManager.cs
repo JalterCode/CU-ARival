@@ -5,6 +5,7 @@ using UnityEngine.XR.ARFoundation;
 using Unity.XR.CoreUtils; // For XR Origin
 using TMPro;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class NavigationManager : MonoBehaviour
 {
@@ -22,12 +23,12 @@ public class NavigationManager : MonoBehaviour
     private XROrigin xrOrigin; // Reference to XR Origin
     private bool isScanningEnabled = true;
 
+    public TextMeshProUGUI navText;
 
     // distance management
     public Button button; // Assign your button in the inspector
     public TextMeshProUGUI textMeshPro; 
     private bool isUpdating = false;
-    private Text distanceText;
     private WaitForSeconds waitTime;
 
     void Start()
@@ -48,8 +49,6 @@ public class NavigationManager : MonoBehaviour
         {
             endPoint = roomObject.transform;
         }
-        //distance check
-        distanceText = GetComponent<Text>();
         waitTime = new WaitForSeconds(0.5f); 
         button.onClick.AddListener(StartUpdatingDistance);
     }
@@ -97,7 +96,27 @@ public class NavigationManager : MonoBehaviour
 }
 
     void Update()
-    {
+    {  
+        float remainingLen = 0;
+        if (path.status == NavMeshPathStatus.PathComplete)
+        {
+            
+            for (int i = 0; i < path.corners.Length - 1; i++)
+            {
+                remainingLen += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+            }
+
+        }
+        if (endPoint.gameObject.name.StartsWith("stairs")) {
+            if (remainingLen <= 3) {
+                navText.text = "Walk up the stairs";
+
+                startingPoint = GameObject.Find("stairs6").transform;
+                endPoint = GameObject.Find("6107").transform;
+            }
+            
+        }
+
         elapsed += Time.deltaTime;
         if (elapsed > 1.0f)
         {
