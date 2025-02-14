@@ -30,11 +30,15 @@ public class NavigationManager : MonoBehaviour
     // distance management
     public Button button; // Assign your button in the inspector
     public TextMeshProUGUI textMeshPro; 
+
+    [SerializeField] private TextMeshProUGUI scanText;
     private bool isUpdating = false;
     private WaitForSeconds waitTime;
 
     void Start()
     {
+         scanUI.SetBool("DropUIDown", true);
+
         camPosition = startingPoint.transform.position.y;
         path = new NavMeshPath();
         elapsed = 0.0f;
@@ -68,6 +72,7 @@ public class NavigationManager : MonoBehaviour
 
     foreach (var newImage in eventArgs.added)
     {
+        scanUI.SetBool("DropUIDown", false);
         scanUI.SetBool("Scanned", true);
         reScanUI.SetBool("floorChanged", false);
         reScanUI.SetBool("Scanned", true);
@@ -119,7 +124,8 @@ public class NavigationManager : MonoBehaviour
         }
 
         if (startingPoint.transform.position.y > camPosition+3) {
-            
+            scanText.text = "Arrive at new floor. \n Please Scan Again";
+            scanUI.SetBool("DropUIDown", true);
         }
 
         elapsed += Time.deltaTime;
