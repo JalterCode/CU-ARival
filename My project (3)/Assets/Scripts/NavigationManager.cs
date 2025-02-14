@@ -5,6 +5,7 @@ using UnityEngine.XR.ARFoundation;
 using Unity.XR.CoreUtils; // For XR Origin
 using TMPro;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class NavigationManager : MonoBehaviour
 {
@@ -17,18 +18,18 @@ public class NavigationManager : MonoBehaviour
     [SerializeField] private Animator animator;
 
     [SerializeField] private Animator scanUI;
+    [SerializeField] private Animator reScanUI;
 
     [SerializeField] private ARTrackedImageManager trackedImageManager;
     private XROrigin xrOrigin; // Reference to XR Origin
     private bool isScanningEnabled = true;
-    public TextMeshProUGUI navText;
 
+    public TextMeshProUGUI navText;
 
     // distance management
     public Button button; // Assign your button in the inspector
     public TextMeshProUGUI textMeshPro; 
     private bool isUpdating = false;
-    private Text distanceText;
     private WaitForSeconds waitTime;
 
     void Start()
@@ -49,8 +50,6 @@ public class NavigationManager : MonoBehaviour
         {
             endPoint = roomObject.transform;
         }
-        //distance check
-        distanceText = GetComponent<Text>();
         waitTime = new WaitForSeconds(0.5f); 
         button.onClick.AddListener(StartUpdatingDistance);
     }
@@ -68,6 +67,8 @@ public class NavigationManager : MonoBehaviour
     foreach (var newImage in eventArgs.added)
     {
         scanUI.SetBool("Scanned", true);
+        reScanUI.SetBool("floorChanged", false);
+        reScanUI.SetBool("Scanned", true);
         string imageName = newImage.referenceImage.name;
         GameObject targetObject = GameObject.Find(imageName);
 
@@ -98,7 +99,7 @@ public class NavigationManager : MonoBehaviour
 }
 
     void Update()
-    {
+    {  
         float remainingLen = 0;
         if (path.status == NavMeshPathStatus.PathComplete)
         {
@@ -110,14 +111,14 @@ public class NavigationManager : MonoBehaviour
 
         }
         if (endPoint.gameObject.name.StartsWith("stairs")) {
-            if (remainingLen <= 3) {
+            if (remainingLen <= 1) {
                 navText.text = "Walk up the stairs";
-
-                // startingPoint = GameObject.Find("stairs6").transform;
-                endPoint = GameObject.Find("6107").transform;
             }
-            
         }
+
+        // if (arrived) {
+            
+        // }
 
         elapsed += Time.deltaTime;
         if (elapsed > 1.0f)
@@ -195,6 +196,7 @@ public class NavigationManager : MonoBehaviour
         trackedImageManager.enabled = true;
         isScanningEnabled = true;
         scanUI.SetBool("Scanned", false);
+        reScanUI.SetBool("Scanned", false);
         animator.SetBool("ButtonPress",false);
         scanUI.SetBool("CamButtonPressed",true);
     }
