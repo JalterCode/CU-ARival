@@ -25,6 +25,7 @@ public class NavigationManager : MonoBehaviour
     private bool isScanningEnabled = true;
 
     public TextMeshProUGUI navText;
+    private float camPosition;
 
     // distance management
     public Button button; // Assign your button in the inspector
@@ -34,6 +35,7 @@ public class NavigationManager : MonoBehaviour
 
     void Start()
     {
+        camPosition = startingPoint.transform.position.y;
         path = new NavMeshPath();
         elapsed = 0.0f;
         instance = this;
@@ -116,9 +118,9 @@ public class NavigationManager : MonoBehaviour
             }
         }
 
-        // if (arrived) {
+        if (startingPoint.transform.position.y > camPosition+3) {
             
-        // }
+        }
 
         elapsed += Time.deltaTime;
         if (elapsed > 1.0f)
