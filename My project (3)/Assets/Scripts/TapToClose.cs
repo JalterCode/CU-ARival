@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class TapToClose : MonoBehaviour
+public class HideButton : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Button targetButton;
+
     void Start()
     {
-        
+        if (targetButton != null)
+        {
+            targetButton.onClick.AddListener(HideElement);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void HideElement()
     {
-        
+        if (targetButton != null)
+        {
+            targetButton.gameObject.SetActive(false);
+        }
     }
 }

@@ -1,34 +1,29 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
-public class ChangeImageColorOnClick : MonoBehaviour, IPointerClickHandler
+public class ToggleButtonImageColor : MonoBehaviour
 {
-    public Color targetColor = Color.green; // The color to change to
-    private Image imageComponent; // Reference to the Image component
-    private Color originalColor; // Store the original color
+    public Button button;
+    private bool isGreen = false;
+
+    private Color defaultColor;
+    private Color greenColor = Color.green;
 
     void Start()
     {
-        // Get the Image component attached to this GameObject
-        imageComponent = GetComponent<Image>();
+        // Get the default color from the Image component attached to the Button
+        defaultColor = button.GetComponent<Image>().color;
 
-        // Store the original color for later restoration
-        if (imageComponent != null)
-        {
-            originalColor = imageComponent.color;
-        }
-        else
-        {
-            Debug.LogError("Image component not found on this GameObject!");
-        }
+        // Add a listener for the button click event
+        button.onClick.AddListener(ToggleColor);
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    private void ToggleColor()
     {
-        if (imageComponent != null)
-        {
-            imageComponent.color = targetColor;
-        }
+        // Toggle the color between green and the default color
+        var image = button.GetComponent<Image>();
+        image.color = isGreen ? defaultColor : greenColor;
+
+        isGreen = !isGreen;
     }
 }

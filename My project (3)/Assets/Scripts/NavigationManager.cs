@@ -30,6 +30,8 @@ public class NavigationManager : MonoBehaviour
     private Text distanceText;
     private WaitForSeconds waitTime;
 
+    public Button arrived;
+
     void Start()
     {
         path = new NavMeshPath();
@@ -155,6 +157,11 @@ public class NavigationManager : MonoBehaviour
                     }
 
                     textMeshPro.text =  pathLength.ToString("F1") + " m";
+
+                    //arrived
+                    if (pathLength<=3 && pathLength!=0){
+                        arrived.gameObject.SetActive(true);
+                    }
                 }
                 else
                 {
