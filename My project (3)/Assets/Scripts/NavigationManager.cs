@@ -21,6 +21,7 @@ public class NavigationManager : MonoBehaviour
     [SerializeField] private ARTrackedImageManager trackedImageManager;
     private XROrigin xrOrigin; // Reference to XR Origin
     private bool isScanningEnabled = true;
+    public TextMeshProUGUI navText;
 
 
     // distance management
@@ -98,6 +99,26 @@ public class NavigationManager : MonoBehaviour
 
     void Update()
     {
+        float remainingLen = 0;
+        if (path.status == NavMeshPathStatus.PathComplete)
+        {
+            
+            for (int i = 0; i < path.corners.Length - 1; i++)
+            {
+                remainingLen += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+            }
+
+        }
+        if (endPoint.gameObject.name.StartsWith("stairs")) {
+            if (remainingLen <= 3) {
+                navText.text = "Walk up the stairs";
+
+                // startingPoint = GameObject.Find("stairs6").transform;
+                endPoint = GameObject.Find("6107").transform;
+            }
+            
+        }
+
         elapsed += Time.deltaTime;
         if (elapsed > 1.0f)
         {
