@@ -34,6 +34,7 @@ public class NavigationManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scanText;
     private bool isUpdating = false;
     private WaitForSeconds waitTime;
+    private int count = 0;
 
     void Start()
     {
@@ -123,7 +124,7 @@ public class NavigationManager : MonoBehaviour
             }
         }
 
-        if (startingPoint.transform.position.y > camPosition+3) {
+        if ((startingPoint.transform.position.y > camPosition+3) && count == 0) {
             scanText.text = "Arrive at new floor. \n Please Scan Again";
             scanUI.SetBool("DropUIDown", true);
         }
