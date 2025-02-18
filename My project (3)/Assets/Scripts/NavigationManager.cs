@@ -66,45 +66,45 @@ public class NavigationManager : MonoBehaviour
     private void OnDisable() => trackedImageManager.trackedImagesChanged -= OnChanged;
 
     private void OnChanged(ARTrackedImagesChangedEventArgs eventArgs)
-{
-    if (!isScanningEnabled) return;
-
-    Debug.Log("Image detected");
-
-    foreach (var newImage in eventArgs.added)
     {
-        scanUI.SetBool("DropUIDown", false);
-        scanUI.SetBool("Scanned", true);
-        reScanUI.SetBool("floorChanged", false);
-        reScanUI.SetBool("Scanned", true);
-        string imageName = newImage.referenceImage.name;
-        GameObject targetObject = GameObject.Find(imageName);
+        if (!isScanningEnabled) return;
 
-        if (targetObject != null)
+        Debug.Log("Image detected");
+
+        foreach (var newImage in eventArgs.added)
         {
-            // Calculate the offset between the detected image and the target object
-            Vector3 offset = targetObject.transform.position - newImage.transform.position;
+            scanUI.SetBool("DropUIDown", false);
+            scanUI.SetBool("Scanned", true);
+            reScanUI.SetBool("floorChanged", false);
+            reScanUI.SetBool("Scanned", true);
+            string imageName = newImage.referenceImage.name;
+            GameObject targetObject = GameObject.Find(imageName);
 
-            // Shift the XR Origin to align the AR space with the real-world plaque
-            xrOrigin.transform.position += offset;
+            if (targetObject != null)
+            {
+                // Calculate the offset between the detected image and the target object
+                Vector3 offset = targetObject.transform.position - newImage.transform.position;
 
-            // Optionally, adjust rotation
-            Quaternion rotationOffset = Quaternion.Inverse(newImage.transform.rotation) * targetObject.transform.rotation;
-            xrOrigin.transform.rotation *= rotationOffset;
+                // Shift the XR Origin to align the AR space with the real-world plaque
+                xrOrigin.transform.position += offset;
 
-            animator.SetBool("ButtonPress", true);
+                // Optionally, adjust rotation
+                Quaternion rotationOffset = Quaternion.Inverse(newImage.transform.rotation) * targetObject.transform.rotation;
+                xrOrigin.transform.rotation *= rotationOffset;
 
-            Debug.Log($"XR Origin adjusted to align with {imageName} location.");
+                animator.SetBool("ButtonPress", true);
+
+                Debug.Log($"XR Origin adjusted to align with {imageName} location.");
+            }
+            else
+            {
+                Debug.LogError($"Could not find object named: {imageName}");
+            }
+
+            trackedImageManager.enabled = false;
+            isScanningEnabled = false;
         }
-        else
-        {
-            Debug.LogError($"Could not find object named: {imageName}");
-        }
-
-        trackedImageManager.enabled = false;
-        isScanningEnabled = false;
     }
-}
 
     void Update()
     {  
