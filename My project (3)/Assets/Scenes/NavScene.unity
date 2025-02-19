@@ -5608,6 +5608,7 @@ MonoBehaviour:
   trackedImageManager: {fileID: 331264289}
   button: {fileID: 2062243115}
   textMeshPro: {fileID: 531017520}
+  scanText: {fileID: 1725542725}
 --- !u!1 &2021467493
 GameObject:
   m_ObjectHideFlags: 0

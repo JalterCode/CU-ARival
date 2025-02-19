@@ -5,6 +5,7 @@ using UnityEngine.XR.ARFoundation;
 using Unity.XR.CoreUtils; // For XR Origin
 using TMPro;
 using System.Collections;
+using System.Threading;
 
 public class NavigationManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class NavigationManager : MonoBehaviour
     [SerializeField] private ARTrackedImageManager trackedImageManager;
     private XROrigin xrOrigin; // Reference to XR Origin
     private bool isScanningEnabled = true;
+    private int count = 0;
 
 
     // distance management
@@ -29,6 +31,7 @@ public class NavigationManager : MonoBehaviour
     private bool isUpdating = false;
     private Text distanceText;
     private WaitForSeconds waitTime;
+    public TextMeshProUGUI scanText;
 
     void Start()
     {
@@ -116,10 +119,10 @@ public class NavigationManager : MonoBehaviour
             }
         }
 
-        if ((startingPoint.transform.position.y > 4)) {
-            // scanText.text = "Arrive at new floor. \n Please Scan Again";
+        if ((startingPoint.transform.position.y > 4) && count == 0) {
+            scanText.text = "Arrive at new floor. \n Please Scan Again";
             scanUI.SetBool("DropUIDown", true);
-            // count++;
+            count++;
         }
 
         elapsed += Time.deltaTime;
