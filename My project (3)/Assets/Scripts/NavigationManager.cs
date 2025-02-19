@@ -24,7 +24,6 @@ public class NavigationManager : MonoBehaviour
 
 
     // distance management
-    public Button button; // Assign your button in the inspector
     public TextMeshProUGUI textMeshPro; 
     private bool isUpdating = false;
     private Text distanceText;
@@ -51,7 +50,7 @@ public class NavigationManager : MonoBehaviour
         //distance check
         distanceText = GetComponent<Text>();
         waitTime = new WaitForSeconds(0.5f); 
-        button.onClick.AddListener(StartUpdatingDistance);
+        StartUpdatingDistance();
     }
 
     private void OnEnable() => trackedImageManager.trackedImagesChanged += OnChanged;
