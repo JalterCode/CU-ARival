@@ -32,6 +32,7 @@ public class NavigationManager : MonoBehaviour
     private Text distanceText;
     private WaitForSeconds waitTime;
     public TextMeshProUGUI scanText;
+    public TextMeshProUGUI navText;
 
     void Start()
     {
@@ -115,7 +116,7 @@ public class NavigationManager : MonoBehaviour
 
         if (endPoint.gameObject.name.StartsWith("stairs")) {
             if (remainingLen <= 1) {
-                //navText.text = "Walk up the stairs";
+                navText.text = "Walk up the stairs";
             }
         }
 
