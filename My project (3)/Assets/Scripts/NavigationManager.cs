@@ -110,6 +110,18 @@ public class NavigationManager : MonoBehaviour
             }
         }
 
+        if (endPoint.gameObject.name.StartsWith("stairs")) {
+            if (remainingLen <= 1) {
+                //navText.text = "Walk up the stairs";
+            }
+        }
+
+        if ((startingPoint.transform.position.y > 4)) {
+            // scanText.text = "Arrive at new floor. \n Please Scan Again";
+            scanUI.SetBool("DropUIDown", true);
+            // count++;
+        }
+
         elapsed += Time.deltaTime;
         if (elapsed > 1.0f)
         {
