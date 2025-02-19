@@ -127,6 +127,7 @@ public class NavigationManager : MonoBehaviour
         if ((startingPoint.transform.position.y > camPosition+3) && count == 0) {
             scanText.text = "Arrive at new floor. \n Please Scan Again";
             scanUI.SetBool("DropUIDown", true);
+            count++;
         }
 
         elapsed += Time.deltaTime;
