@@ -104,27 +104,27 @@ public class NavigationManager : MonoBehaviour
 
     void Update()
     {
-        float remainingLen = 0;
-        if (path.status == NavMeshPathStatus.PathComplete)
-        {   
-            for (int i = 0; i < path.corners.Length - 1; i++)
-            {
-                remainingLen += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+        // float remainingLen = 0;
+        // if (path.status == NavMeshPathStatus.PathComplete)
+        // {   
+        //     for (int i = 0; i < path.corners.Length - 1; i++)
+        //     {
+        //         remainingLen += Vector3.Distance(path.corners[i], path.corners[i + 1]);
                 
-            }
-        }
+        //     }
+        // }
 
-        if (endPoint.gameObject.name.StartsWith("stairs")) {
-            if (remainingLen <= 1) {
-                navText.text = "Walk up the stairs";
-            }
-        }
+        // if (endPoint.gameObject.name.StartsWith("stairs")) {
+        //     if (remainingLen <= 1) {
+        //         navText.text = "Walk up the stairs";
+        //     }
+        // }
 
-        if ((startingPoint.transform.position.y > 4) && count == 0) {
-            scanText.text = "Arrive at new floor. \n Please Scan Again";
-            scanUI.SetBool("DropUIDown", true);
-            count++;
-        }
+        // if ((startingPoint.transform.position.y > 4) && count == 0) {
+        //     scanText.text = "Arrive at new floor. \n Please Scan Again";
+        //     scanUI.SetBool("DropUIDown", true);
+        //     count++;
+        // }
 
         elapsed += Time.deltaTime;
         if (elapsed > 1.0f)
