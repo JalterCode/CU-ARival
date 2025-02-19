@@ -26,6 +26,7 @@ public class NavigationManager : MonoBehaviour
 
     public TextMeshProUGUI navText;
     private float camPosition;
+    private Vector3 ogPosition;
 
     // distance management
     public Button button; // Assign your button in the inspector
@@ -41,6 +42,7 @@ public class NavigationManager : MonoBehaviour
          scanUI.SetBool("DropUIDown", true);
 
         camPosition = startingPoint.transform.position.y;
+        ogPosition = startingPoint.transform.position;
         path = new NavMeshPath();
         elapsed = 0.0f;
         instance = this;
@@ -82,15 +84,22 @@ public class NavigationManager : MonoBehaviour
 
             if (targetObject != null)
             {
-                // Calculate the offset between the detected image and the target object
-                Vector3 offset = targetObject.transform.position - newImage.transform.position;
+                // // Calculate the offset between the detected image and the target object
+                // Vector3 offset = targetObject.transform.position - newImage.transform.position;
 
-                // Shift the XR Origin to align the AR space with the real-world plaque
-                xrOrigin.transform.position += offset;
+                // // Shift the XR Origin to align the AR space with the real-world plaque
+                // xrOrigin.transform.position += offset;
 
-                // Optionally, adjust rotation
-                Quaternion rotationOffset = Quaternion.Inverse(newImage.transform.rotation) * targetObject.transform.rotation;
-                xrOrigin.transform.rotation *= rotationOffset;
+                // // Optionally, adjust rotation
+                // Quaternion rotationOffset = Quaternion.Inverse(newImage.transform.rotation) * targetObject.transform.rotation;
+                // xrOrigin.transform.rotation *= rotationOffset;
+
+                Vector3 offset = new Vector3(targetObject.transform.position.x - newImage.transform.position.x,
+                                            targetObject.transform.position.y - newImage.transform.position.y,
+                                            targetObject.transform.position.z- newImage.transform.position.z);
+
+                xrOrigin.transform.position = ogPosition + offset;
+
 
                 animator.SetBool("ButtonPress", true);
 
