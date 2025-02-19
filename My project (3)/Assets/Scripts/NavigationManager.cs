@@ -100,6 +100,16 @@ public class NavigationManager : MonoBehaviour
 
     void Update()
     {
+        // float remainingLen = 0;
+        if (path.status == NavMeshPathStatus.PathComplete)
+        {   
+            for (int i = 0; i < path.corners.Length - 1; i++)
+            {
+                // remainingLen += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+                
+            }
+        }
+
         elapsed += Time.deltaTime;
         if (elapsed > 1.0f)
         {
