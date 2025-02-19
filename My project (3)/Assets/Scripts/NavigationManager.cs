@@ -5,7 +5,6 @@ using UnityEngine.XR.ARFoundation;
 using Unity.XR.CoreUtils; // For XR Origin
 using TMPro;
 using System.Collections;
-using Unity.VisualScripting;
 
 public class NavigationManager : MonoBehaviour
 {
@@ -18,31 +17,23 @@ public class NavigationManager : MonoBehaviour
     [SerializeField] private Animator animator;
 
     [SerializeField] private Animator scanUI;
-    [SerializeField] private Animator reScanUI;
 
     [SerializeField] private ARTrackedImageManager trackedImageManager;
     private XROrigin xrOrigin; // Reference to XR Origin
     private bool isScanningEnabled = true;
 
-    public TextMeshProUGUI navText;
-    private float camPosition;
-    private Vector3 ogPosition;
 
     // distance management
     public Button button; // Assign your button in the inspector
     public TextMeshProUGUI textMeshPro; 
-
-    [SerializeField] private TextMeshProUGUI scanText;
     private bool isUpdating = false;
+    private Text distanceText;
     private WaitForSeconds waitTime;
-    private int count = 0;
 
     void Start()
     {
-         scanUI.SetBool("DropUIDown", true);
-
-        camPosition = startingPoint.transform.position.y;
-        ogPosition = startingPoint.transform.position;
+        scanUI.SetBool("DropUIDown", true);
+        
         path = new NavMeshPath();
         elapsed = 0.0f;
         instance = this;
@@ -59,6 +50,8 @@ public class NavigationManager : MonoBehaviour
         {
             endPoint = roomObject.transform;
         }
+        //distance check
+        distanceText = GetComponent<Text>();
         waitTime = new WaitForSeconds(0.5f); 
         button.onClick.AddListener(StartUpdatingDistance);
     }
@@ -76,69 +69,37 @@ public class NavigationManager : MonoBehaviour
         foreach (var newImage in eventArgs.added)
         {
             scanUI.SetBool("DropUIDown", false);
-            scanUI.SetBool("Scanned", true);
-            reScanUI.SetBool("floorChanged", false);
-            reScanUI.SetBool("Scanned", true);
+            scanUI.SetBool("Scanned",true);
             string imageName = newImage.referenceImage.name;
             GameObject targetObject = GameObject.Find(imageName);
 
             if (targetObject != null)
             {
-                // // Calculate the offset between the detected image and the target object
-                // Vector3 offset = targetObject.transform.position - newImage.transform.position;
+                // Calculate the position difference between the detected image and the target object
+                Vector3 offsetPosition = targetObject.transform.position - newImage.transform.position;
+                Quaternion offsetRotation = targetObject.transform.rotation * Quaternion.Inverse(newImage.transform.rotation);
 
-                // // Shift the XR Origin to align the AR space with the real-world plaque
-                // xrOrigin.transform.position += offset;
+                // Manually update the XR Origin's position and rotation
+                xrOrigin.transform.position += offsetPosition;
+                xrOrigin.transform.rotation = offsetRotation;
 
-                // // Optionally, adjust rotation
-                // Quaternion rotationOffset = Quaternion.Inverse(newImage.transform.rotation) * targetObject.transform.rotation;
-                // xrOrigin.transform.rotation *= rotationOffset;
+                animator.SetBool("ButtonPress",true);
 
-                Vector3 offset = new Vector3(targetObject.transform.position.x - newImage.transform.position.x,
-                                            targetObject.transform.position.y - newImage.transform.position.y,
-                                            targetObject.transform.position.z- newImage.transform.position.z);
-
-                xrOrigin.transform.position = ogPosition + offset;
-
-
-                animator.SetBool("ButtonPress", true);
-
-                Debug.Log($"XR Origin adjusted to align with {imageName} location.");
+                Debug.Log($"XR Origin manually adjusted to align with {imageName} location.");
             }
             else
             {
                 Debug.LogError($"Could not find object named: {imageName}");
             }
-
+        
             trackedImageManager.enabled = false;
             isScanningEnabled = false;
+
         }
     }
 
     void Update()
-    {  
-        float remainingLen = 0;
-        if (path.status == NavMeshPathStatus.PathComplete)
-        {
-            
-            for (int i = 0; i < path.corners.Length - 1; i++)
-            {
-                remainingLen += Vector3.Distance(path.corners[i], path.corners[i + 1]);
-            }
-
-        }
-        if (endPoint.gameObject.name.StartsWith("stairs")) {
-            if (remainingLen <= 1) {
-                navText.text = "Walk up the stairs";
-            }
-        }
-
-        if ((startingPoint.transform.position.y > camPosition+3) && count == 0) {
-            scanText.text = "Arrive at new floor. \n Please Scan Again";
-            scanUI.SetBool("DropUIDown", true);
-            count++;
-        }
-
+    {
         elapsed += Time.deltaTime;
         if (elapsed > 1.0f)
         {
@@ -148,7 +109,6 @@ public class NavigationManager : MonoBehaviour
                 NavMesh.CalculatePath(startingPoint.position, endPoint.position, NavMesh.AllAreas, path);
                 lineRenderer.positionCount = path.corners.Length;
                 lineRenderer.SetPositions(path.corners);
-                Debug.Log($"Path status: {path.status}, Corners count: {path.corners.Length}");
             }
         }
     }
@@ -156,7 +116,6 @@ public class NavigationManager : MonoBehaviour
     public void UpdateNavigationTarget(string roomName)
     {
         GameObject roomObject = GameObject.Find(roomName);
-
 
         if (roomObject != null)
         {
@@ -215,7 +174,6 @@ public class NavigationManager : MonoBehaviour
         trackedImageManager.enabled = true;
         isScanningEnabled = true;
         scanUI.SetBool("Scanned", false);
-        reScanUI.SetBool("Scanned", false);
         animator.SetBool("ButtonPress",false);
         scanUI.SetBool("CamButtonPressed",true);
     }
