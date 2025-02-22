@@ -24,7 +24,6 @@ public class NavigationManager : MonoBehaviour
 
 
     // distance management
-    public Button button; // Assign your button in the inspector
     public TextMeshProUGUI textMeshPro; 
     private bool isUpdating = false;
     private Text distanceText;
@@ -34,6 +33,7 @@ public class NavigationManager : MonoBehaviour
 
     void Start()
     {
+        arrived.gameObject.SetActive(false);
         path = new NavMeshPath();
         elapsed = 0.0f;
         instance = this;
@@ -53,7 +53,7 @@ public class NavigationManager : MonoBehaviour
         //distance check
         distanceText = GetComponent<Text>();
         waitTime = new WaitForSeconds(0.5f); 
-        button.onClick.AddListener(StartUpdatingDistance);
+        StartUpdatingDistance();
     }
 
     private void OnEnable() => trackedImageManager.trackedImagesChanged += OnChanged;
@@ -161,6 +161,7 @@ public class NavigationManager : MonoBehaviour
                     //arrived
                     if (pathLength<=3 && pathLength!=0){
                         arrived.gameObject.SetActive(true);
+                        endPoint = null;
                     }
                 }
                 else
