@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class findRoomScript : MonoBehaviour
 {
@@ -64,8 +65,14 @@ public class findRoomScript : MonoBehaviour
         clickedButton = button; 
         string selectedRoom = GetRoom();
         Debug.Log("Selected Room: " + selectedRoom);
-        if(selectedRoom.StartsWith("6")) {
-            selectedRoom = "stairs5";
+        // if(selectedRoom.StartsWith("6")) {
+        //     selectedRoom = "stairs5";
+        // }
+
+        String currentRoom = NavigationManager.instance.GetImageName();
+        if (selectedRoom.Substring(0, 1) != currentRoom.Substring(0, 1)) {
+            selectedRoom =  "stairs" + currentRoom.Substring(0, 1);
+            Debug.Log($"{currentRoom} first letter:\n\t{currentRoom.Substring(0, 1)}");
         }
 
         // Pass the selected room to the NavigationManager

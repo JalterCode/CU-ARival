@@ -19,5 +19,9 @@ public class HideButton : MonoBehaviour
         {
             targetButton.gameObject.SetActive(false);
         }
+
+        if (targetButton.gameObject.name == "ArrivedUI") {
+            
+        }
     }
 }

@@ -30,6 +30,7 @@ public class NavigationManager : MonoBehaviour
     private WaitForSeconds waitTime;
 
     public Button arrived;
+    private string imageName;
 
     void Start()
     {
@@ -69,7 +70,7 @@ public class NavigationManager : MonoBehaviour
     foreach (var newImage in eventArgs.added)
     {
         scanUI.SetBool("Scanned", true);
-        string imageName = newImage.referenceImage.name;
+        imageName = newImage.referenceImage.name;
         GameObject targetObject = GameObject.Find(imageName);
 
         if (targetObject != null)
@@ -161,6 +162,7 @@ public class NavigationManager : MonoBehaviour
                     //arrived
                     if (pathLength<=3 && pathLength!=0){
                         arrived.gameObject.SetActive(true);
+                        
                         endPoint = null;
                     }
                 }
@@ -184,6 +186,10 @@ public class NavigationManager : MonoBehaviour
         scanUI.SetBool("Scanned", false);
         animator.SetBool("ButtonPress",false);
         scanUI.SetBool("CamButtonPressed",true);
+    }
+
+    public string GetImageName() {
+        return imageName;
     }
 
 }
