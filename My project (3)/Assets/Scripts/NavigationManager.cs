@@ -32,6 +32,9 @@ public class NavigationManager : MonoBehaviour
     public Button arrived;
     private string imageName;
 
+    public Button toggleStairs;
+
+
     void Start()
     {
         arrived.gameObject.SetActive(false);
@@ -55,6 +58,8 @@ public class NavigationManager : MonoBehaviour
         distanceText = GetComponent<Text>();
         waitTime = new WaitForSeconds(0.5f); 
         StartUpdatingDistance();
+
+        toggleStairs.onClick.AddListener(ToggleStairs);
     }
 
     private void OnEnable() => trackedImageManager.trackedImagesChanged += OnChanged;
@@ -176,6 +181,19 @@ public class NavigationManager : MonoBehaviour
             }
 
             yield return waitTime; 
+        }
+        
+    }
+    public void ToggleStairs(){
+        var image = toggleStairs.GetComponent<Image>();
+        if(image.color != isGreen){
+            if (endPoint == "stairs"){
+                endPoint = "elevator";
+            }
+        }else{
+            if (endPoint == "elevator"){
+                endPoint = "stairs";
+            }
         }
     }
 

@@ -2379,7 +2379,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &789628203
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6438,9 +6438,9 @@ MonoBehaviour:
   animator: {fileID: 2123387447}
   scanUI: {fileID: 1569703820}
   trackedImageManager: {fileID: 331264289}
-  button: {fileID: 2062243115}
   textMeshPro: {fileID: 531017520}
   arrived: {fileID: 789628205}
+  toggleStairs: {fileID: 0}
 --- !u!1 &2021467493
 GameObject:
   m_ObjectHideFlags: 0
@@ -6776,7 +6776,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2123387446
 RectTransform:
   m_ObjectHideFlags: 0
