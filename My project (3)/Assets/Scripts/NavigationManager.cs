@@ -30,11 +30,7 @@ public class NavigationManager : MonoBehaviour
     private WaitForSeconds waitTime;
 
     public Button arrived;
-    private string imageName;
-
-    public Button toggleStairs;
-
-
+    private string imageName;   
     void Start()
     {
         arrived.gameObject.SetActive(false);
@@ -58,8 +54,6 @@ public class NavigationManager : MonoBehaviour
         distanceText = GetComponent<Text>();
         waitTime = new WaitForSeconds(0.5f); 
         StartUpdatingDistance();
-
-        toggleStairs.onClick.AddListener(ToggleStairs);
     }
 
     private void OnEnable() => trackedImageManager.trackedImagesChanged += OnChanged;
@@ -87,10 +81,12 @@ public class NavigationManager : MonoBehaviour
 
             xrOrigin.MatchOriginUpCameraForward(Vector3.up, startingPoint.forward);
 
-            startingPoint.rotation = Quaternion.LookRotation(-wallDirection, Vector3.up);
+            //startingPoint.rotation = Quaternion.LookRotation(-wallDirection, Vector3.up);
 
             //penis
-
+            //ejaculation
+            Quaternion targetRotation = Quaternion.LookRotation(targetObject.transform.forward, Vector3.up);
+            xrOrigin.transform.rotation = targetRotation;
 
 
             // Optionally, adjust rotation
@@ -188,19 +184,6 @@ public class NavigationManager : MonoBehaviour
             }
 
             yield return waitTime; 
-        }
-        
-    }
-    public void ToggleStairs(){
-        var image = toggleStairs.GetComponent<Image>();
-        if(image.color != isGreen){
-            if (endPoint == "stairs"){
-                endPoint = "elevator";
-            }
-        }else{
-            if (endPoint == "elevator"){
-                endPoint = "stairs";
-            }
         }
     }
 
