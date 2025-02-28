@@ -78,22 +78,8 @@ public class NavigationManager : MonoBehaviour
         if (targetObject != null)
         {
 
-            Vector3 wallDirection = targetObject.transform.forward;
-
             xrOrigin.MoveCameraToWorldLocation(targetObject.transform.position);
-
-            xrOrigin.MatchOriginUpCameraForward(Vector3.up, startingPoint.forward);
-
-            //startingPoint.rotation = Quaternion.LookRotation(-wallDirection, Vector3.up);
-
-            //ejaculation
-            Quaternion targetRotation = Quaternion.LookRotation(targetObject.transform.forward, Vector3.up);
-            xrOrigin.transform.rotation = targetRotation;
-
-
-            // Optionally, adjust rotation
-            // Quaternion rotationOffset = Quaternion.Inverse(newImage.transform.rotation) * targetObject.transform.rotation;
-            // xrOrigin.transform.rotation *= rotationOffset;
+            xrOrigin.MatchOriginUpCameraForward(targetObject.transform.up, targetObject.transform.forward);
 
             animator.SetBool("ButtonPress", true);
 
