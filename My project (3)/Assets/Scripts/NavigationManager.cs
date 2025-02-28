@@ -5,6 +5,7 @@ using UnityEngine.XR.ARFoundation;
 using Unity.XR.CoreUtils; // For XR Origin
 using TMPro;
 using System.Collections;
+using System.Threading;
 
 public class NavigationManager : MonoBehaviour
 {
@@ -31,9 +32,12 @@ public class NavigationManager : MonoBehaviour
 
     public Button arrived;
     private string imageName;
+    private int count = 0;
 
+    //Toggle Button 
     public Button toggleStairs;
-
+    private bool useStairs = false;
+    public findRoomScript roomScript;
 
     void Start()
     {
@@ -41,6 +45,7 @@ public class NavigationManager : MonoBehaviour
         path = new NavMeshPath();
         elapsed = 0.0f;
         instance = this;
+        toggleStairs.onClick.AddListener(ToggleEndpoint);
 
         // Get reference to XR Origin
         xrOrigin = FindObjectOfType<XROrigin>();
@@ -59,7 +64,7 @@ public class NavigationManager : MonoBehaviour
         waitTime = new WaitForSeconds(0.5f); 
         StartUpdatingDistance();
 
-        toggleStairs.onClick.AddListener(ToggleStairs);
+
     }
 
     private void OnEnable() => trackedImageManager.trackedImagesChanged += OnChanged;
@@ -81,13 +86,13 @@ public class NavigationManager : MonoBehaviour
         if (targetObject != null)
         {
 
-            // Vector3 wallDirection = targetObject.transform.forward;
+            Vector3 wallDirection = targetObject.transform.forward;
 
             xrOrigin.MoveCameraToWorldLocation(targetObject.transform.position);
 
-            // xrOrigin.MatchOriginUpCameraForward(Vector3.up, startingPoint.forward);
+            xrOrigin.MatchOriginUpCameraForward(Vector3.up, startingPoint.forward);
 
-            // startingPoint.rotation = Quaternion.LookRotation(-wallDirection, Vector3.up);
+            //startingPoint.rotation = Quaternion.LookRotation(-wallDirection, Vector3.up);
 
             //penis
             //ejaculation
@@ -174,10 +179,11 @@ public class NavigationManager : MonoBehaviour
                     textMeshPro.text =  pathLength.ToString("F1") + " m";
 
                     //arrived
-                    if (pathLength<=3 && pathLength!=0){
+                    if (pathLength<=1 && pathLength!=0 && count == 0){
                         arrived.gameObject.SetActive(true);
-                        endPoint = null;
-                    }
+                        count++;
+                    } 
+                     
                 }
                 else
                 {
@@ -191,21 +197,56 @@ public class NavigationManager : MonoBehaviour
 
             yield return waitTime; 
         }
-        
-    }
-    public void ToggleStairs(){
-        var image = toggleStairs.GetComponent<Image>();
-        if(image.color != isGreen){
-            if (endPoint == "stairs"){
-                endPoint = "elevator";
-            }
-        }else{
-            if (endPoint == "elevator"){
-                endPoint = "stairs";
-            }
-        }
     }
 
+private void ToggleEndpoint()
+{
+    if (endPoint == null) return;
+
+    string currentEndpointName = endPoint.gameObject.name;
+    string floorNumber = "";
+
+    if (currentEndpointName.StartsWith("Elevator"))
+    {
+        floorNumber = currentEndpointName.Substring(8);
+        GameObject stairsObject = GameObject.Find("stairs" + floorNumber);
+        if (stairsObject != null)
+        {
+            endPoint = stairsObject.transform;
+            useStairs = true;
+            if (roomScript != null)
+            {
+                roomScript.SetlocationText("stairs" + floorNumber);
+                Debug.LogError("SetlocationText set to stairs");
+            }
+            else
+            {
+                Debug.LogError("roomScript is not assigned in NavigationManager!");
+            }
+            Debug.Log($"Switched to Stairs{floorNumber}");
+        }
+    }
+    else if (currentEndpointName.StartsWith("stairs"))
+    {
+        floorNumber = currentEndpointName.Substring(6);
+        GameObject elevatorObject = GameObject.Find("Elevator" + floorNumber);
+        if (elevatorObject != null)
+        {
+            endPoint = elevatorObject.transform;
+            useStairs = false;
+            if (roomScript != null)
+            {
+                roomScript.SetlocationText("Elevator" + floorNumber); 
+                Debug.LogError("SetlocationText set to Elevator");
+            }
+            else
+            {
+                Debug.LogError("roomScript is not assigned in NavigationManager!");
+            }
+            Debug.Log($"Switched to Elevator{floorNumber}");
+        }
+    }
+}
     public void EnableScanning(){
         trackedImageManager.enabled = true;
         isScanningEnabled = true;

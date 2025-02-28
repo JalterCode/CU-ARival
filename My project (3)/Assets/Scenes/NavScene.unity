@@ -1158,6 +1158,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 331264285}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &359520675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 359520676}
+  m_Layer: 0
+  m_Name: Elevator6
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &359520676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359520675}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 1.45, y: 3.76, z: 0.36}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 553172107}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &363202392
 GameObject:
   m_ObjectHideFlags: 0
@@ -1622,7 +1653,9 @@ Transform:
   - {fileID: 2033399256}
   - {fileID: 1931895469}
   - {fileID: 2021467494}
+  - {fileID: 1539143000}
   - {fileID: 113197714}
+  - {fileID: 359520676}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &558045841
@@ -2668,7 +2701,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &789628203
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2784,6 +2817,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 789628202}
   m_CullTransparentMesh: 1
+--- !u!1 &823074809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 823074811}
+  - component: {fileID: 823074810}
+  m_Layer: 0
+  m_Name: findroom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &823074810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823074809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c830b196d264d568e71a8651ce2c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Button5201: {fileID: 2062243115}
+  Button5107: {fileID: 144766206}
+  Button5111: {fileID: 1354326742}
+  Button5105: {fileID: 300019996}
+  Button5101: {fileID: 844580819}
+  Button6107: {fileID: 575668450}
+  locationText: {fileID: 1700971080}
+--- !u!4 &823074811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823074809}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 526.6984, y: 479.36395, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &844580816
 GameObject:
   m_ObjectHideFlags: 0
@@ -5200,6 +5284,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1523898472}
   m_CullTransparentMesh: 1
+--- !u!1 &1539142999
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1539143000}
+  m_Layer: 0
+  m_Name: Elevator5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1539143000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539142999}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 1.45, y: -0.57, z: 0.36}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 553172107}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1569703817
 GameObject:
   m_ObjectHideFlags: 0
@@ -6219,7 +6334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1787557508
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6786,7 +6901,8 @@ MonoBehaviour:
   trackedImageManager: {fileID: 331264289}
   textMeshPro: {fileID: 531017520}
   arrived: {fileID: 789628205}
-  toggleStairs: {fileID: 0}
+  toggleStairs: {fileID: 1513263550}
+  roomScript: {fileID: 823074810}
 --- !u!1 &2021467493
 GameObject:
   m_ObjectHideFlags: 0
@@ -7174,7 +7290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2123387446
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7290,6 +7406,7 @@ SceneRoots:
   - {fileID: 1075000276}
   - {fileID: 331264285}
   - {fileID: 1571486780}
+  - {fileID: 823074811}
   - {fileID: 1973793307}
   - {fileID: 872790457}
   - {fileID: 553172107}

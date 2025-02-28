@@ -15,6 +15,9 @@ public class findRoomScript : MonoBehaviour
     private static string destination;
     private Button clickedButton; 
     public TMP_Text locationText;
+    //public string toggle_endpoint; 
+
+
 
     void Start()
     {
@@ -69,13 +72,12 @@ public class findRoomScript : MonoBehaviour
         // }
         string currentRoom = NavigationManager.instance.GetImageName();
         if (currentRoom.Substring(0, 1) != selectedRoom.Substring(0, 1)) {
-            selectedRoom = "stairs" + currentRoom.Substring(0, 1);
+            selectedRoom = "Elevator" + currentRoom.Substring(0, 1);
         }
 
         // Pass the selected room to the NavigationManager
         SetDestination(selectedRoom.Replace(" ", "").Trim());
         locationText.text = "Navigating to room " + selectedRoom;
-    
         NavigationManager.instance.UpdateNavigationTarget(selectedRoom);
     }
 
@@ -88,4 +90,20 @@ public class findRoomScript : MonoBehaviour
     {
         return destination;
     }
+
+public void SetlocationText(string NewLocationText)
+{
+    if (locationText != null)
+    {
+        locationText.text = NewLocationText;
+        locationText.ForceMeshUpdate();
+        Debug.Log("locationText updated to: " + NewLocationText); // Verify update
+    }
+    else
+    {
+        Debug.LogError("locationText is null in findRoomScript! Assign it in the Inspector.");
+    }
+}
+
+    public TMP_Text GetlocationText(TMP_Text NewLocationText) { return locationText;}
 }
