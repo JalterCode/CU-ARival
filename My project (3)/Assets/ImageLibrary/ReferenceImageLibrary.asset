@@ -27,3 +27,13 @@ MonoBehaviour:
     m_SpecifySize: 0
     m_Name: 5107
     m_Texture: {fileID: 2800000, guid: 6deb044632b95d647bae5db41a46e25e, type: 3}
+  - m_SerializedGuid:
+      m_GuidLow: 5710826848979701579
+      m_GuidHigh: 14400574534506773128
+    m_SerializedTextureGuid:
+      m_GuidLow: 17371733590737588275
+      m_GuidHigh: 1300761178025038731
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: download (1)
+    m_Texture: {fileID: 0}

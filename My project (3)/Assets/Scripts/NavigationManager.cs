@@ -5,6 +5,7 @@ using UnityEngine.XR.ARFoundation;
 using Unity.XR.CoreUtils; // For XR Origin
 using TMPro;
 using System.Collections;
+using System.Threading;
 
 public class NavigationManager : MonoBehaviour
 {
@@ -30,7 +31,9 @@ public class NavigationManager : MonoBehaviour
     private WaitForSeconds waitTime;
 
     public Button arrived;
-    private string imageName;   
+    private string imageName;
+    private int count = 0;
+
     void Start()
     {
         arrived.gameObject.SetActive(false);
@@ -83,7 +86,6 @@ public class NavigationManager : MonoBehaviour
 
             //startingPoint.rotation = Quaternion.LookRotation(-wallDirection, Vector3.up);
 
-            //penis
             //ejaculation
             Quaternion targetRotation = Quaternion.LookRotation(targetObject.transform.forward, Vector3.up);
             xrOrigin.transform.rotation = targetRotation;
@@ -168,10 +170,12 @@ public class NavigationManager : MonoBehaviour
                     textMeshPro.text =  pathLength.ToString("F1") + " m";
 
                     //arrived
-                    if (pathLength<=3 && pathLength!=0){
+                    if (pathLength<=1 && pathLength!=0 && count == 0){
                         arrived.gameObject.SetActive(true);
-                        endPoint = null;
-                    }
+                        count++;
+                        //penis
+                    } 
+                     
                 }
                 else
                 {
