@@ -34,6 +34,8 @@ public class NavigationManager : MonoBehaviour
     private string imageName;
     private int count = 0;
 
+    [SerializeField] private Animator greenUI;
+
     void Start()
     {
         scanUI.SetBool("NotScanned",true);
@@ -162,6 +164,8 @@ public class NavigationManager : MonoBehaviour
                     if (pathLength<=1 && pathLength!=0 && count == 0){
                         arrived.gameObject.SetActive(true);
                         count++;
+                        greenUI.SetBool("locationPressed", false);
+                        greenUI.SetBool("ScanRestarted", true);
                         //penis
                         if(endPoint.name.StartsWith("stairs") || endPoint.name.StartsWith("elevator")) {
                             EnableScanning();
