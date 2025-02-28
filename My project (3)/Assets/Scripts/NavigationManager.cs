@@ -76,16 +76,18 @@ public class NavigationManager : MonoBehaviour
         if (targetObject != null)
         {
 
-            Vector3 wallDirection = targetObject.transform.forward;
+            // Vector3 wallDirection = targetObject.transform.forward;
 
             xrOrigin.MoveCameraToWorldLocation(targetObject.transform.position);
 
-            xrOrigin.MatchOriginUpCameraForward(Vector3.up, startingPoint.forward);
+            // xrOrigin.MatchOriginUpCameraForward(Vector3.up, startingPoint.forward);
 
-            startingPoint.rotation = Quaternion.LookRotation(-wallDirection, Vector3.up);
+            // startingPoint.rotation = Quaternion.LookRotation(-wallDirection, Vector3.up);
 
             //penis
-
+            //ejaculation
+            Quaternion targetRotation = Quaternion.LookRotation(targetObject.transform.forward, Vector3.up);
+            xrOrigin.transform.rotation = targetRotation;
 
 
             // Optionally, adjust rotation
