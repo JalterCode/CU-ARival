@@ -163,6 +163,9 @@ public class NavigationManager : MonoBehaviour
                         arrived.gameObject.SetActive(true);
                         count++;
                         //penis
+                        if(endPoint.name.StartsWith("stairs") || endPoint.name.StartsWith("elevator")) {
+                            EnableScanning();
+                        }
                     } 
                      
                 }
