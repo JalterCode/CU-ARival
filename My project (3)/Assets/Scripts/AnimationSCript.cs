@@ -36,6 +36,5 @@ public class AnimationSCript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("ButtonPress: " + animator.GetBool("ButtonPress"));
     }
 }

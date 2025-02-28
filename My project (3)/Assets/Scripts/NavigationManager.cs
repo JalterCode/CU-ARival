@@ -36,6 +36,8 @@ public class NavigationManager : MonoBehaviour
 
     void Start()
     {
+        scanUI.SetBool("NotScanned",true);
+
         arrived.gameObject.SetActive(false);
         path = new NavMeshPath();
         elapsed = 0.0f;
@@ -92,6 +94,7 @@ public class NavigationManager : MonoBehaviour
 
         trackedImageManager.enabled = false;
         isScanningEnabled = false;
+        scanUI.SetBool("NotScanned",false);
     }
 }
 
@@ -181,8 +184,11 @@ public class NavigationManager : MonoBehaviour
         trackedImageManager.enabled = true;
         isScanningEnabled = true;
         scanUI.SetBool("Scanned", false);
+        scanUI.SetBool("NotScanned",true);
+
         animator.SetBool("ButtonPress",false);
         scanUI.SetBool("CamButtonPressed",true);
+        Debug.Log("Rescan Button Pressed");
     }
 
     public string GetImageName() {
