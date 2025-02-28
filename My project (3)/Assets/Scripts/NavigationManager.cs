@@ -75,15 +75,22 @@ public class NavigationManager : MonoBehaviour
 
         if (targetObject != null)
         {
-            // Calculate the offset between the detected image and the target object
-            Vector3 offset = targetObject.transform.position - newImage.transform.position;
 
-            // Shift the XR Origin to align the AR space with the real-world plaque
-            xrOrigin.transform.position += offset;
+            Vector3 wallDirection = targetObject.transform.forward;
+
+            xrOrigin.MoveCameraToWorldLocation(targetObject.transform.position);
+
+            xrOrigin.MatchOriginUpCameraForward(Vector3.up, startingPoint.forward);
+
+            startingPoint.rotation = Quaternion.LookRotation(-wallDirection, Vector3.up);
+
+            //penis
+
+
 
             // Optionally, adjust rotation
-            Quaternion rotationOffset = Quaternion.Inverse(newImage.transform.rotation) * targetObject.transform.rotation;
-            xrOrigin.transform.rotation *= rotationOffset;
+            // Quaternion rotationOffset = Quaternion.Inverse(newImage.transform.rotation) * targetObject.transform.rotation;
+            // xrOrigin.transform.rotation *= rotationOffset;
 
             animator.SetBool("ButtonPress", true);
 
