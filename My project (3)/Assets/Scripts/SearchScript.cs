@@ -12,6 +12,7 @@ public class SearchScript : MonoBehaviour
     // Start is called before the first frame update
     private List<Transform> roomButtons;
 
+
     void Start()
     {
         roomButtons = new List<Transform>();
@@ -40,5 +41,7 @@ public class SearchScript : MonoBehaviour
                 child.gameObject.SetActive(true);  
             }
         }
+        
+
     }
 }
