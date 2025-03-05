@@ -2,43 +2,99 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections.Generic;
+
 
 public class findRoomScript : MonoBehaviour
 {
-    public Button Button5201;
-    public Button Button5107;
-    public Button Button5111;
-    public Button Button5105;
-    public Button Button5101;
-    public Button Button6107;
+    // public Button Button5201;
+    // public Button Button5107;
+    // public Button Button5111;
+    // public Button Button5105;
+    // public Button Button5101;
+    // public Button Button6107;
     //public TMP_Dropdown dropDown;
+
+    private SortedDictionary<string, Button> roomButtons = new SortedDictionary<string, Button>();
+    [SerializeField] private RectTransform panel;
+    public Button buttonPrefab;
+    
     private static string destination;
     private Button clickedButton; 
     public TMP_Text locationText;
+    public static string endPoint;
 
     void Start()
     {
-        if (Button5201 == null)
+        // if (Button5201 == null)
+        // {
+        //     Debug.LogError("Button5201 is not assigned!");
+        //     return;
+        // }
+
+        // if (Button5107 == null)
+        // {
+        //     Debug.LogError("Button5107 is not assigned!");
+        //     return;
+        // }
+
+        // Button5201.onClick.AddListener(() => OnNavigateButtonClicked(Button5201));
+        // Button5107.onClick.AddListener(() => OnNavigateButtonClicked(Button5107));
+        // Button5111.onClick.AddListener(() => OnNavigateButtonClicked(Button5111));
+        // Button5105.onClick.AddListener(() => OnNavigateButtonClicked(Button5105));
+        // Button5101.onClick.AddListener(() => OnNavigateButtonClicked(Button5101));
+        // Button6107.onClick.AddListener(() => OnNavigateButtonClicked(Button6107));
+        
+        GenerateButtons();
+        
+    }
+
+    public void GenerateButtons() { 
+        List<Transform> roomParents = GetFloorLocations();
+        List<string> roomNames = new List<string>();
+        foreach (Transform parent in roomParents)
         {
-            Debug.LogError("Button5201 is not assigned!");
-            return;
+            foreach (Transform room in parent)
+            {   
+                if(double.TryParse(room.name, out _)) {
+                    roomNames.Add(room.name+"Button"); 
+                }
+                
+            }
         }
 
-        if (Button5107 == null)
+        foreach (Transform btn in panel)
         {
-            Debug.LogError("Button5107 is not assigned!");
-            return;
+            Button button = btn.GetComponent<Button>();
+            roomButtons[btn.name] = button;
         }
 
-        Button5201.onClick.AddListener(() => OnNavigateButtonClicked(Button5201));
-        Button5107.onClick.AddListener(() => OnNavigateButtonClicked(Button5107));
-        Button5111.onClick.AddListener(() => OnNavigateButtonClicked(Button5111));
-        Button5105.onClick.AddListener(() => OnNavigateButtonClicked(Button5105));
-        Button5101.onClick.AddListener(() => OnNavigateButtonClicked(Button5101));
-        Button6107.onClick.AddListener(() => OnNavigateButtonClicked(Button6107));
-        
-        
-        
+
+        // float Yoffset = -116f;
+        foreach (string roomName in roomNames)
+        {
+            if (!roomButtons.ContainsKey(roomName)) // If button does not exist, create it
+            {
+                Button newButton = Instantiate(buttonPrefab, panel);
+                newButton.name = roomName;
+                newButton.GetComponentInChildren<TMP_Text>().text = roomName.Replace("Button", "");
+                newButton.onClick.AddListener(() => OnNavigateButtonClicked(newButton));
+
+                roomButtons[roomName] = newButton;
+            }
+        }
+    }
+
+    public List<Transform> GetFloorLocations() {
+        List<Transform> locations = new List<Transform>();
+        foreach (Transform obj in FindObjectsOfType<Transform>())
+        {
+            if (obj.name.EndsWith("please"))
+            {
+                locations.Add(obj);
+            }
+        }
+        return locations;
     }
 
     public string GetRoom()
