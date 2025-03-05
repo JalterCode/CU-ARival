@@ -164,8 +164,7 @@ public class NavigationManager : MonoBehaviour
                     if (pathLength<=1 && pathLength!=0 && count == 0){
                         arrived.gameObject.SetActive(true);
                         count++;
-                        greenUI.SetBool("locationPressed", false);
-                        greenUI.SetBool("ScanRestarted", true);
+                        greenUI.SetTrigger("Not Navigating");
                         //penis
                         if(endPoint.name.StartsWith("stairs") || endPoint.name.StartsWith("elevator")) {
                             EnableScanning();

@@ -24,8 +24,7 @@ public class AnimationSCript : MonoBehaviour
         animator.SetBool("NavigationTargetSelected",true);
         animator.SetBool("ButtonPress",false);
         animator.SetBool("pullDownPressed",true);
-        navTarget.SetBool("locationPressed",true);
-
+        navTarget.SetTrigger("Navigating");
     }
     // Start is called before the first frame update
     void Start()
