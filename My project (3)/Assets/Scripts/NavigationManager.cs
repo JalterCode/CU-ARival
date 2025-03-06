@@ -15,6 +15,10 @@ public class NavigationManager : MonoBehaviour
     public LineRenderer lineRenderer;
     float elapsed;
     public NavMeshPath path;
+
+    [SerializeField] private Animator notificationAnimator;
+
+    [SerializeField] private TextMeshProUGUI notificationText;
     [SerializeField] private Animator animator;
 
     [SerializeField] private Animator scanUI;
@@ -100,6 +104,9 @@ public class NavigationManager : MonoBehaviour
         trackedImageManager.enabled = false;
         isScanningEnabled = false;
         scanUI.SetBool("NotScanned",false);
+
+        notificationAnimator.SetTrigger("Scanned");
+        notificationText.text = $"Successfully scanned room {imageName}";
     }
 }
 
