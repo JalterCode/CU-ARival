@@ -34,6 +34,8 @@ public class NavigationManager : MonoBehaviour
     private string imageName;
     private int count = 0;
 
+    [SerializeField] private TextMeshProUGUI scanText;
+
     [SerializeField] private Animator greenUI;
 
     void Start()
@@ -167,6 +169,7 @@ public class NavigationManager : MonoBehaviour
                         greenUI.SetTrigger("Not Navigating");
                         //penis
                         if(endPoint.name.StartsWith("stairs") || endPoint.name.StartsWith("elevator")) {
+                            scanText.text = $"Please scan on floor {findRoomScript.RealDestination()[..1]}";
                             EnableScanning();
                         }
                     } 

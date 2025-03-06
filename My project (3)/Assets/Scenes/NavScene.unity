@@ -700,7 +700,7 @@ Transform:
   m_GameObject: {fileID: 363202392}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 3.83, y: -0.57, z: -0.7899997}
+  m_LocalPosition: {x: 3.83, y: -0.57, z: -0.7899}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4706,7 +4706,7 @@ GameObject:
   - component: {fileID: 1725542726}
   - component: {fileID: 1725542725}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: ScanText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4728,7 +4728,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 329, y: -67}
+  m_AnchoredPosition: {x: 379, y: -67}
   m_SizeDelta: {x: 759.1962, y: 104.3079}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1725542725
@@ -5561,6 +5561,7 @@ MonoBehaviour:
   trackedImageManager: {fileID: 331264289}
   textMeshPro: {fileID: 531017520}
   arrived: {fileID: 789628205}
+  scanText: {fileID: 1725542725}
   greenUI: {fileID: 708229528}
 --- !u!1 &2021467493
 GameObject:
@@ -5587,7 +5588,7 @@ Transform:
   m_GameObject: {fileID: 2021467493}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 2.48, y: -0.57, z: -13.83}
+  m_LocalPosition: {x: 2.48, y: -0.57, z: -15.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

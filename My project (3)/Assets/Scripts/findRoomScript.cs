@@ -20,6 +20,7 @@ public class findRoomScript : MonoBehaviour
     public Button buttonPrefab;
     
     private static string destination;
+    private static string realDestination;
     private Button clickedButton; 
     public TMP_Text locationText;
     public static string endPoint;
@@ -119,6 +120,7 @@ public class findRoomScript : MonoBehaviour
     {
         clickedButton = button; 
         string selectedRoom = GetRoom();
+        realDestination = selectedRoom;
         Debug.Log("Selected Room: " + selectedRoom);
         // if(selectedRoom.StartsWith("6")) {
         //     selectedRoom = "stairs5";
@@ -143,5 +145,9 @@ public class findRoomScript : MonoBehaviour
     public static string GetDestination()
     {
         return destination;
+    }
+
+    public static string RealDestination() {
+        return realDestination;
     }
 }
