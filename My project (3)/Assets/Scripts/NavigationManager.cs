@@ -58,9 +58,10 @@ public class NavigationManager : MonoBehaviour
         if (roomObject != null)
         {
             endPoint = roomObject.transform;
+            
         }
         //distance check
-        distanceText = GetComponent<Text>();
+        distanceText = GetComponent<Text>();    
         waitTime = new WaitForSeconds(0.5f); 
         StartUpdatingDistance();
     }
@@ -126,6 +127,7 @@ public class NavigationManager : MonoBehaviour
         if (roomObject != null)
         {
             endPoint = roomObject.transform;
+            count = 0;
             Debug.Log("Navigation room updated: " + roomName);
         }
         else
