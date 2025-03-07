@@ -16,6 +16,7 @@ public class NavigationManager : MonoBehaviour
     public LineRenderer lineRenderer;
     float elapsed;
     public NavMeshPath path;
+    
 
     [SerializeField] private Animator notificationAnimator;
 
@@ -42,6 +43,8 @@ public class NavigationManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scanText;
 
     [SerializeField] private Animator greenUI;
+
+    public TMP_Text greenUIText;
 
     private Boolean isMultiFloorNavigating = false;
 
@@ -182,6 +185,7 @@ public class NavigationManager : MonoBehaviour
                     if (pathLength<=1 && pathLength!=0 && count == 0){
                         arrived.gameObject.SetActive(true);
                         count++;
+                        imageName = "";
                         greenUI.SetTrigger("Not Navigating");
                         if(isMultiFloorNavigating){
                             isMultiFloorNavigating = false;
@@ -191,8 +195,9 @@ public class NavigationManager : MonoBehaviour
                             scanText.text = $"Please scan on floor {findRoomScript.RealDestination()[..1]}";
                             endPoint = GameObject.Find(findRoomScript.RealDestination()).transform;
                             isMultiFloorNavigating = true;
-
                             EnableScanning();
+                            greenUIText.text = $"Navigating to room {findRoomScript.RealDestination()}";
+                            Debug.Log($"WWWWWWWWWWWW {findRoomScript.RealDestination()}");
                         }
                     } 
                      
