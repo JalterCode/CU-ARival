@@ -3598,10 +3598,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: f114df6e0d9764f4980b4c3ed1858ea3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6a3ad5ff15d13c54eba441b9c03bd406, type: 2}
     - target: {fileID: 919132149155446097, guid: f114df6e0d9764f4980b4c3ed1858ea3,
         type: 3}
       propertyPath: m_Name
-      value: canalFloor6Realplease (1)
+      value: canalFloor6Realplease
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
