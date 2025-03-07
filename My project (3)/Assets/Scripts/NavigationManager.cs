@@ -18,6 +18,10 @@ public class NavigationManager : MonoBehaviour
     public NavMeshPath path;
     
 
+
+    public Button toggleStairs;
+    private bool useStairs = false;
+    public findRoomScript roomScript;
     [SerializeField] private Animator notificationAnimator;
 
     [SerializeField] private TextMeshProUGUI notificationText;
@@ -230,5 +234,62 @@ public class NavigationManager : MonoBehaviour
     public string GetImageName() {
         return imageName;
     }
+
+
+
+    public void ToggleEndpoint()
+{
+    if (endPoint == null) return;
+
+
+
+    string currentEndpointName = endPoint.gameObject.name;
+    string floorNumber = "";
+
+    if (currentEndpointName.StartsWith("elevator"))
+    {
+        floorNumber = currentEndpointName.Substring(8);
+        GameObject stairsObject = GameObject.Find("stairs" + floorNumber);
+        if (stairsObject != null)
+        {
+            endPoint = stairsObject.transform;
+            useStairs = true;
+            if (roomScript != null)
+            {
+                roomScript.SetlocationText("stairs" + floorNumber);
+                Debug.LogError("SetlocationText set to stairs");
+            }
+            else
+            {
+                Debug.LogError("roomScript is not assigned in NavigationManager!");
+            }
+            Debug.Log($"Switched to Stairs{floorNumber}");
+        }
+    }
+    else if (currentEndpointName.StartsWith("stairs"))
+    {
+        floorNumber = currentEndpointName.Substring(6);
+        GameObject elevatorObject = GameObject.Find("elevator" + floorNumber);
+        if (elevatorObject != null)
+        {
+            endPoint = elevatorObject.transform;
+            useStairs = false;
+            if (roomScript != null)
+            {
+                roomScript.SetlocationText("elevator" + floorNumber); 
+                Debug.LogError("SetlocationText set to Elevator");
+            }
+            else
+            {
+                Debug.LogError("roomScript is not assigned in NavigationManager!");
+            }
+            Debug.Log($"Switched to Elevator{floorNumber}");
+        }
+    }
+
+    greenUIText.text = $"Navigating to room {endPoint.name}";
+
+
+}
 
 }

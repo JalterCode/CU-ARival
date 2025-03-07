@@ -127,7 +127,7 @@ public class findRoomScript : MonoBehaviour
         // }
         string currentRoom = NavigationManager.instance.GetImageName();
         if (currentRoom.Substring(0, 1) != selectedRoom.Substring(0, 1)) {
-            selectedRoom = "stairs" + currentRoom.Substring(0, 1);
+            selectedRoom = "elevator" + currentRoom.Substring(0, 1);
         }
 
         // Pass the selected room to the NavigationManager
@@ -151,4 +151,21 @@ public class findRoomScript : MonoBehaviour
 
         return realDestination;
     }
+
+
+    public void SetlocationText(string NewLocationText)
+{
+    if (locationText != null)
+    {
+        locationText.text = NewLocationText;
+
+        Debug.Log("locationText updated to:");
+    }
+    else
+    {
+        Debug.LogError("locationText is null in findRoomScript! Assign it in the Inspector.");
+    }
+}
+
+    public TMP_Text GetlocationText(TMP_Text NewLocationText) { return locationText;}
 }
