@@ -6,6 +6,7 @@ using Unity.XR.CoreUtils; // For XR Origin
 using TMPro;
 using System.Collections;
 using System.Threading;
+using System;
 
 public class NavigationManager : MonoBehaviour
 {
@@ -41,6 +42,8 @@ public class NavigationManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scanText;
 
     [SerializeField] private Animator greenUI;
+
+    private Boolean isMultiFloorNavigating = false;
 
     void Start()
     {
@@ -107,6 +110,10 @@ public class NavigationManager : MonoBehaviour
 
         notificationAnimator.SetTrigger("Scanned");
         notificationText.text = $"Successfully scanned room {imageName}";
+
+        if(isMultiFloorNavigating){
+            greenUI.SetTrigger("Navigating");
+        }
     }
 }
 
@@ -176,9 +183,15 @@ public class NavigationManager : MonoBehaviour
                         arrived.gameObject.SetActive(true);
                         count++;
                         greenUI.SetTrigger("Not Navigating");
+                        if(isMultiFloorNavigating){
+                            isMultiFloorNavigating = false;
+                        }
                         //penis
                         if(endPoint.name.StartsWith("stairs") || endPoint.name.StartsWith("elevator")) {
                             scanText.text = $"Please scan on floor {findRoomScript.RealDestination()[..1]}";
+                            endPoint = GameObject.Find(findRoomScript.RealDestination()).transform;
+                            isMultiFloorNavigating = true;
+
                             EnableScanning();
                         }
                     } 
