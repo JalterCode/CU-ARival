@@ -100,7 +100,6 @@ public class NavigationManager : MonoBehaviour
 
         if (targetObject != null)
         {
-
             xrOrigin.MoveCameraToWorldLocation(targetObject.transform.position);
             xrOrigin.MatchOriginUpCameraForward(targetObject.transform.up, targetObject.transform.forward);
 
@@ -212,7 +211,7 @@ public class NavigationManager : MonoBehaviour
                 {
                     textMeshPro.text = "No path found.";
                     rescanCount++;
-                    if (rescanCount >=3){
+                    if (rescanCount >=15){
                         rescanCount = 0;
                         scanText.text = $"Calibration lose, please rescan";
                         EnableScanning();
