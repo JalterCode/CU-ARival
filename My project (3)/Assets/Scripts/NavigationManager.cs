@@ -52,6 +52,8 @@ public class NavigationManager : MonoBehaviour
 
     private Boolean isMultiFloorNavigating = false;
 
+    private int rescanCount = 0;
+
     void Start()
     {
         scanUI.SetBool("NotScanned",true);
@@ -209,6 +211,12 @@ public class NavigationManager : MonoBehaviour
                 else
                 {
                     textMeshPro.text = "No path found.";
+                    rescanCount++;
+                    if (rescanCount >=3){
+                        rescanCount = 0;
+                        scanText.text = $"Calibration lose, please rescan";
+                        EnableScanning();
+                    }
                 }
             }
             else
