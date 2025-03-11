@@ -57,7 +57,6 @@ public class NavigationManager : MonoBehaviour
     void Start()
     {
         scanUI.SetBool("NotScanned",true);
-
         arrived.gameObject.SetActive(false);
         path = new NavMeshPath();
         elapsed = 0.0f;
@@ -75,6 +74,17 @@ public class NavigationManager : MonoBehaviour
         {
             endPoint = roomObject.transform;
             
+        }
+                
+
+        if (lineRenderer != null)
+        {
+            // Create a uniform width curve
+            AnimationCurve curve = new AnimationCurve();
+            curve.AddKey(0, 0.3f);
+            curve.AddKey(1, 0.3f);
+
+            lineRenderer.widthCurve = curve;
         }
         //distance check
         distanceText = GetComponent<Text>();    
