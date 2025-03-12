@@ -8099,6 +8099,10 @@ MonoBehaviour:
   scanText: {fileID: 1725542725}
   greenUI: {fileID: 708229528}
   greenUIText: {fileID: 1230409670}
+  greenUIImage: {fileID: 2101799897}
+  straightArrow: {fileID: 21300000, guid: 5cf96cbf5ea962845a0fbde31acddc3f, type: 3}
+  leftArrow: {fileID: 21300000, guid: 542bea576e10b464b8d0a365fb198f73, type: 3}
+  rightArrow: {fileID: 21300000, guid: ced2b5e247f9a974caa98566a77aff1c, type: 3}
 --- !u!1 &2042274160
 GameObject:
   m_ObjectHideFlags: 0
@@ -8366,7 +8370,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 009d0e82f32db40d2b97a75b7dbed43b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5cf96cbf5ea962845a0fbde31acddc3f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

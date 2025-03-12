@@ -50,9 +50,16 @@ public class NavigationManager : MonoBehaviour
 
     public TMP_Text greenUIText;
 
-    private Boolean isMultiFloorNavigating = false;
+    private Boolean isMultiFloorNavigating =     false;
 
     private int rescanCount = 0;
+
+    //greenUI arrows
+    public Image greenUIImage;
+    public Sprite straightArrow;
+    public Sprite leftArrow;
+    public Sprite rightArrow;
+
 
     void Start()
     {
@@ -97,7 +104,7 @@ public class NavigationManager : MonoBehaviour
     private void OnDisable() => trackedImageManager.trackedImagesChanged -= OnChanged;
 
     private void OnChanged(ARTrackedImagesChangedEventArgs eventArgs)
-{
+ {
     if (!isScanningEnabled) return;
 
     Debug.Log("Image detected");
@@ -133,7 +140,7 @@ public class NavigationManager : MonoBehaviour
             greenUI.SetTrigger("Navigating");
         }
     }
-}
+ }
 
     void Update()
     {
@@ -215,7 +222,18 @@ public class NavigationManager : MonoBehaviour
                             Debug.Log($"WWWWWWWWWWWW {findRoomScript.RealDestination()}");
                         }
                     } 
-                     
+                    if (leftTurn())
+                    {
+                        greenUIImage.sprite = leftArrow;
+                    }
+                    else if (rightTurn())
+                    {
+                        greenUIImage.sprite = rightArrow;
+                    }
+                    else
+                    {
+                        greenUIImage.sprite = straightArrow;
+                    }
                 }
                 else
                 {
@@ -236,21 +254,79 @@ public class NavigationManager : MonoBehaviour
             yield return waitTime; 
         }
     }
+    private bool IsRightTurn(Vector3 previousCorner, Vector3 currentCorner, Vector3 nextCorner)
+    {
+        Vector3 previousDirection = (currentCorner - previousCorner).normalized;
+        Vector3 nextDirection = (nextCorner - currentCorner).normalized;
 
-    public void EnableScanning(){
-        trackedImageManager.enabled = true;
-        isScanningEnabled = true;
-        scanUI.SetBool("Scanned", false);
-        scanUI.SetBool("NotScanned",true);
+        float crossProductY = Vector3.Cross(previousDirection, nextDirection).y;
 
-        animator.SetBool("ButtonPress",false);
-        scanUI.SetBool("CamButtonPressed",true);
-        Debug.Log("Rescan Button Pressed");
+        return crossProductY > 0; // Positive y means left turn
     }
 
-    public string GetImageName() {
-        return imageName;
+    private bool IsLeftTurn(Vector3 previousCorner, Vector3 currentCorner, Vector3 nextCorner)
+    {
+        Vector3 previousDirection = (currentCorner - previousCorner).normalized;
+        Vector3 nextDirection = (nextCorner - currentCorner).normalized;
+
+        float crossProductY = Vector3.Cross(previousDirection, nextDirection).y;
+
+        return crossProductY < 0; // Negative y means right turn
     }
+
+    public bool rightTurn()
+    {
+        if (path == null || path.corners.Length < 3)
+        {
+            return false;
+        }
+
+        for (int i = 1; i < path.corners.Length - 1; i++)
+        {
+            if (IsRightTurn(path.corners[i - 1], path.corners[i], path.corners[i + 1]))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool leftTurn()
+    {
+        if (path == null || path.corners.Length < 3)
+        {
+            return false;
+        }
+
+        for (int i = 1; i < path.corners.Length - 1; i++)
+        {
+            if (IsLeftTurn(path.corners[i - 1], path.corners[i], path.corners[i + 1]))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
+
+
+public void EnableScanning(){
+    trackedImageManager.enabled = true;
+    isScanningEnabled = true;
+    scanUI.SetBool("Scanned", false);
+    scanUI.SetBool("NotScanned",true);
+
+    animator.SetBool("ButtonPress",false);
+    scanUI.SetBool("CamButtonPressed",true);
+    Debug.Log("Rescan Button Pressed");
+}
+
+public string GetImageName() {
+    return imageName;
+}
 
 
 
@@ -307,6 +383,7 @@ public class NavigationManager : MonoBehaviour
     greenUIText.text = $"Navigating to room {endPoint.name}";
 
 
+
+    }
 }
 
-}
