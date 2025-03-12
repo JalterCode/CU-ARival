@@ -8,14 +8,14 @@ public class BuildingSelectorScript : MonoBehaviour
 {
     //public Button NinediyanButton;
     public Button CanalButton;
-    //public Button MackenzieButton;
+    public Button MackenzieButton;
     //public Button ToryButton;
     // Start is called before the first frame update
     void Start()
     {
        // NinediyanButton.onClick.AddListener(() => OnNavigateButtonClicked(NinediyanButton));
         CanalButton.onClick.AddListener(() => OnNavigateButtonClicked(CanalButton));
-       // MackenzieButton.onClick.AddListener(() => OnNavigateButtonClicked(MackenzieButton));
+        MackenzieButton.onClick.AddListener(() => OnNavigateButtonClicked(MackenzieButton));
         //ToryButton.onClick.AddListener(() => OnNavigateButtonClicked(ToryButton));
         
         
@@ -25,6 +25,11 @@ public class BuildingSelectorScript : MonoBehaviour
         if (button == CanalButton)
         {
             SceneManager.LoadScene("NavScene", LoadSceneMode.Single);
+        }
+
+        if(button == MackenzieButton)
+        {
+            SceneManager.LoadScene("Mackenzie", LoadSceneMode.Single);
         }
 
     }

@@ -1132,6 +1132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanalButton: {fileID: 1786872154}
+  MackenzieButton: {fileID: 453930834}
 --- !u!114 &1072898723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1799,6 +1800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanalButton: {fileID: 1786872154}
+  MackenzieButton: {fileID: 0}
 --- !u!1 &1786872152
 GameObject:
   m_ObjectHideFlags: 0
