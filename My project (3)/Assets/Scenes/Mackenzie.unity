@@ -451,7 +451,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.13333334
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: f2137dd17768e064b8bc7d4a527b1565, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 33e12ea7b81505640970bd9b0cdc3b94, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &268099848
 Transform:
@@ -1052,6 +1052,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: mackenzieTestplease
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 53687266443fb314c81af1ec7a3bf1e3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3292,6 +3297,74 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2123387447}
   navTarget: {fileID: 0}
+--- !u!1001 &1373476570
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 4799e03af648cf44a8317fb10cd6904d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -68.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4799e03af648cf44a8317fb10cd6904d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4799e03af648cf44a8317fb10cd6904d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -16.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4799e03af648cf44a8317fb10cd6904d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4799e03af648cf44a8317fb10cd6904d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4799e03af648cf44a8317fb10cd6904d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4799e03af648cf44a8317fb10cd6904d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4799e03af648cf44a8317fb10cd6904d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4799e03af648cf44a8317fb10cd6904d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4799e03af648cf44a8317fb10cd6904d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4799e03af648cf44a8317fb10cd6904d,
+        type: 3}
+      propertyPath: m_Name
+      value: mackenzieFloor4please
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4799e03af648cf44a8317fb10cd6904d, type: 3}
 --- !u!1 &1404697803
 GameObject:
   m_ObjectHideFlags: 0
@@ -4131,7 +4204,7 @@ Transform:
   m_GameObject: {fileID: 1640136099}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 62.46, y: -0.68, z: 14.36}
+  m_LocalPosition: {x: 14.49, y: -0.68, z: 14.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4717,13 +4790,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1760609251}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.401, y: -0.68, z: -0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -1.4, y: -0.68, z: -0.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 414340513}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1787557507
 GameObject:
   m_ObjectHideFlags: 0
@@ -5778,3 +5851,4 @@ SceneRoots:
   - {fileID: 910059076}
   - {fileID: 453368875}
   - {fileID: 619229135}
+  - {fileID: 1373476570}
