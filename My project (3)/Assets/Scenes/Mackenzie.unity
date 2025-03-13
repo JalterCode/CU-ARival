@@ -5811,7 +5811,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7b289f8273ce1a74f9c96ec66b183376,
         type: 3}
       propertyPath: m_Name
-      value: 2mackenzieforrealplease 1
+      value: 2mackenzieforrealplease
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
