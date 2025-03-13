@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/BuildingSelectorScene.unity
     guid: 56761a436b21040e7ba5fc033fa6bc71
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Building Selector.unity
     guid: c1ec91a5ae7dea94eabb2aeed2b6b35a
   - enabled: 1
