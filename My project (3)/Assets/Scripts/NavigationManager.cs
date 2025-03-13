@@ -222,13 +222,13 @@ public class NavigationManager : MonoBehaviour
                             Debug.Log($"WWWWWWWWWWWW {findRoomScript.RealDestination()}");
                         }
                     } 
-                    if (leftTurn())
-                    {
-                        greenUIImage.sprite = leftArrow;
-                    }
-                    else if (rightTurn())
+                    if (turn() == 1)
                     {
                         greenUIImage.sprite = rightArrow;
+                    }
+                    else if (turn() == 2)
+                    {
+                        greenUIImage.sprite = leftArrow;
                     }
                     else
                     {
@@ -254,59 +254,41 @@ public class NavigationManager : MonoBehaviour
             yield return waitTime; 
         }
     }
-    private bool IsRightTurn(Vector3 previousCorner, Vector3 currentCorner, Vector3 nextCorner)
+    private float TurnCheck(Vector3 previousCorner, Vector3 currentCorner, Vector3 nextCorner)
     {
         Vector3 previousDirection = (currentCorner - previousCorner).normalized;
         Vector3 nextDirection = (nextCorner - currentCorner).normalized;
 
         float crossProductY = Vector3.Cross(previousDirection, nextDirection).y;
 
-        return crossProductY > 0; // Positive y means left turn
+        return crossProductY; // Positive y means left turn
     }
 
-    private bool IsLeftTurn(Vector3 previousCorner, Vector3 currentCorner, Vector3 nextCorner)
-    {
-        Vector3 previousDirection = (currentCorner - previousCorner).normalized;
-        Vector3 nextDirection = (nextCorner - currentCorner).normalized;
-
-        float crossProductY = Vector3.Cross(previousDirection, nextDirection).y;
-
-        return crossProductY < 0; // Negative y means right turn
-    }
-
-    public bool rightTurn()
+    public int turn()
     {
         if (path == null || path.corners.Length < 3)
         {
-            return false;
+            return 0;
         }
 
         for (int i = 1; i < path.corners.Length - 1; i++)
         {
-            if (IsRightTurn(path.corners[i - 1], path.corners[i], path.corners[i + 1]))
+            float turn = TurnCheck(path.corners[i - 1], path.corners[i], path.corners[i + 1]);
+            if (turn>0)
             {
-                return true;
+                //right
+                return 1;
             }
+            else if (turn<0){
+                //left
+                return 2;
+            }
+
         }
-        return false;
+        //straight
+        return 0;
     }
 
-    public bool leftTurn()
-    {
-        if (path == null || path.corners.Length < 3)
-        {
-            return false;
-        }
-
-        for (int i = 1; i < path.corners.Length - 1; i++)
-        {
-            if (IsLeftTurn(path.corners[i - 1], path.corners[i], path.corners[i + 1]))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
 
 
 
