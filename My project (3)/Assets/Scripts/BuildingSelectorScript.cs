@@ -1,43 +1,23 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro;
-using System.Collections.Generic;
 
-public class BuildingSelectorScript : MonoBehaviour
+public class MainMenu : MonoBehaviour
 {
-    //public Button NinediyanButton;
-    public Button CanalButton;
-    public Button MackenzieButton;
-    //public Button ToryButton;
-    // Start is called before the first frame update
-    void Start()
+    public void LoadScene(string sceneName)
     {
-       // NinediyanButton.onClick.AddListener(() => OnNavigateButtonClicked(NinediyanButton));
-        CanalButton.onClick.AddListener(() => OnNavigateButtonClicked(CanalButton));
-        MackenzieButton.onClick.AddListener(() => OnNavigateButtonClicked(MackenzieButton));
-        //ToryButton.onClick.AddListener(() => OnNavigateButtonClicked(ToryButton));
-        
-        
-    }
-    private void OnNavigateButtonClicked(Button button){
-
-        if (button == CanalButton)
+        if (!string.IsNullOrEmpty(sceneName)) 
         {
-            SceneManager.LoadScene("NavScene", LoadSceneMode.Single);
+            SceneManager.LoadScene(sceneName);
         }
-
-        if(button == MackenzieButton)
+        else
         {
-            Debug.Log("Mackenzie Pressed");
-            SceneManager.LoadScene("Mackenzie", LoadSceneMode.Single);
+            Debug.LogError("Scene name is null or empty!");
         }
-
     }
 
-    // Update is called once per frame
-    void Update()
+    public void QuitGame()
     {
-        
+        Debug.Log("Quitting Game...");
+        Application.Quit();
     }
 }

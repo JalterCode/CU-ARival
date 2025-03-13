@@ -11,15 +11,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MainMenuUI.unity
     guid: df29b17b2c19e4e259aa485574d8c38e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BuildingSelectorScene.unity
     guid: 56761a436b21040e7ba5fc033fa6bc71
+  - enabled: 0
+    path: Assets/Scenes/Building Selector.unity
+    guid: c1ec91a5ae7dea94eabb2aeed2b6b35a
+  - enabled: 0
+    path: Assets/Scenes/Mackenzie.unity
+    guid: a5f5c5640d27c244c83b5186c15a5696
   - enabled: 1
     path: Assets/Scenes/NavScene.unity
     guid: 2fc30dae5d1b90c45812395e803a1f70
-  - enabled: 1
-    path: Assets/Scenes/Mackenzie.unity
-    guid: a5f5c5640d27c244c83b5186c15a5696
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af,
       type: 2}
