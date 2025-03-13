@@ -29,6 +29,7 @@ public class BuildingSelectorScript : MonoBehaviour
 
         if(button == MackenzieButton)
         {
+            Debug.Log("Mackenzie Pressed");
             SceneManager.LoadScene("Mackenzie", LoadSceneMode.Single);
         }
 
