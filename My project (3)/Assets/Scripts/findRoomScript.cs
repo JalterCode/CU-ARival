@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine.EventSystems;
 
 
 public class findRoomScript : MonoBehaviour
@@ -24,6 +26,9 @@ public class findRoomScript : MonoBehaviour
     private Button clickedButton; 
     public TMP_Text locationText;
     public static string endPoint;
+
+    // Added for sort button
+    public Button sortButton;
 
     void Start()
     {
@@ -47,6 +52,15 @@ public class findRoomScript : MonoBehaviour
         // Button6107.onClick.AddListener(() => OnNavigateButtonClicked(Button6107));
         
         GenerateButtons();
+
+                if (sortButton != null)
+        {
+            sortButton.onClick.AddListener(SortRoomsByFloor);
+        }
+        else
+        {
+            Debug.LogWarning("Sort button not assigned in findRoomScript!");
+        }
         
     }
 
@@ -168,4 +182,76 @@ public class findRoomScript : MonoBehaviour
 }
 
     public TMP_Text GetlocationText(TMP_Text NewLocationText) { return locationText;}
+
+        //panel getter for sort button
+    public RectTransform GetPanel() { return panel; }
+   
+   //sort the rooms by floor
+    public void SortRoomsByFloor()
+    {
+        List<RoomData> roomDataList = new List<RoomData>();
+        foreach (var kvp in roomButtons)
+        {
+            RoomData roomData = new RoomData
+            {
+                roomNumber = kvp.Key.Replace("Button", ""),
+                button = kvp.Value
+            };
+            roomDataList.Add(roomData);
+        }
+
+        if (roomDataList.Count == 0 || NavigationManager.instance == null)
+        {
+            Debug.LogWarning("Cannot sort: room list empty or NavigationManager instance not found!");
+            return;
+        }
+
+        string userFloor = GetUserFloor();
+
+        roomDataList = roomDataList.OrderBy(room =>
+        {
+            bool isSameFloor = room.roomNumber.StartsWith(userFloor);
+            return isSameFloor ? 0 : 1;
+        }).ToList();
+
+        for (int i = 0; i < roomDataList.Count; i++)
+        {
+            if (roomDataList[i].button != null)
+            {
+                roomDataList[i].button.transform.SetSiblingIndex(i);
+            }
+        }
+
+        Debug.Log($"Sorted rooms for floor {userFloor}");
+
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
+    }
+
+    // get the user's floor
+    private string GetUserFloor()
+    {
+        string imageName = NavigationManager.instance.GetImageName();
+        Debug.Log("Image name from NavigationManager: " + imageName);
+        if (!string.IsNullOrEmpty(imageName))
+        {
+            return imageName.Substring(0, 1);
+        }
+
+        float yPos = NavigationManager.instance.startingPoint.position.y;
+        if (yPos < 10f) return "3";
+        if (yPos < 20f) return "4";
+        if (yPos < 30f) return "5";
+        return "3";
+    }
+
+    // Added RoomData class for sorting
+    [System.Serializable]
+    private class RoomData
+    {
+        public string roomNumber;
+        public Button button;
+    }
 }
