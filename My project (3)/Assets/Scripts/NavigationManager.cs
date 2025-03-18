@@ -20,7 +20,6 @@ public class NavigationManager : MonoBehaviour
 
 
     public Button toggleStairs;
-    private bool useStairs = false;
     public findRoomScript roomScript;
     [SerializeField] private Animator notificationAnimator;
 
@@ -328,7 +327,6 @@ public string GetImageName() {
         if (stairsObject != null)
         {
             endPoint = stairsObject.transform;
-            useStairs = true;
             if (roomScript != null)
             {
                 roomScript.SetlocationText("stairs" + floorNumber);
@@ -348,7 +346,6 @@ public string GetImageName() {
         if (elevatorObject != null)
         {
             endPoint = elevatorObject.transform;
-            useStairs = false;
             if (roomScript != null)
             {
                 roomScript.SetlocationText("elevator" + floorNumber); 
@@ -363,8 +360,6 @@ public string GetImageName() {
     }
 
     greenUIText.text = $"Navigating to room {endPoint.name}";
-
-
 
     }
 }

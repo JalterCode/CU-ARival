@@ -28,8 +28,9 @@ public class findRoomScript : MonoBehaviour
     public static string endPoint;
 
     // Added for sort button
-    public Button sortButton;
-
+    public Button sortButton;               
+    public Sprite starSprite;
+    public Sprite yellowStarSprite;
     void Start()
     {
         // if (Button5201 == null)
@@ -52,8 +53,8 @@ public class findRoomScript : MonoBehaviour
         // Button6107.onClick.AddListener(() => OnNavigateButtonClicked(Button6107));
         
         GenerateButtons();
-
-                if (sortButton != null)
+        SortRoomsByFloor();
+        if (sortButton != null)
         {
             sortButton.onClick.AddListener(SortRoomsByFloor);
         }
@@ -61,7 +62,6 @@ public class findRoomScript : MonoBehaviour
         {
             Debug.LogWarning("Sort button not assigned in findRoomScript!");
         }
-        
     }
 
     public void GenerateButtons() { 
@@ -89,11 +89,18 @@ public class findRoomScript : MonoBehaviour
         foreach (string roomName in roomNames)
         {
             if (!roomButtons.ContainsKey(roomName)) // If button does not exist, create it
-            {
-                Button newButton = Instantiate(buttonPrefab, panel);
+            {                Button newButton = Instantiate(buttonPrefab, panel);
                 newButton.name = roomName;
                 newButton.GetComponentInChildren<TMP_Text>().text = roomName.Replace("Button", "");
                 newButton.onClick.AddListener(() => OnNavigateButtonClicked(newButton));
+
+                Image starImage = new GameObject("StarImage").AddComponent<Image>();
+                starImage.transform.SetParent(newButton.transform);
+                starImage.sprite = starSprite;
+                starImage.rectTransform.sizeDelta = new Vector2(150, 150);
+                starImage.rectTransform.anchoredPosition = new Vector2(100, 0);
+                Button starButton = starImage.gameObject.AddComponent<Button>();
+                starButton.onClick.AddListener(() => OnStarClicked(starImage));
 
                 roomButtons[roomName] = newButton;
             }
@@ -204,7 +211,7 @@ public class findRoomScript : MonoBehaviour
         {
             Debug.LogWarning("Cannot sort: room list empty or NavigationManager instance not found!");
             return;
-        }
+        }   
 
         string userFloor = GetUserFloor();
 
@@ -253,5 +260,16 @@ public class findRoomScript : MonoBehaviour
     {
         public string roomNumber;
         public Button button;
+    }
+    private void OnStarClicked(Image starImage)
+    {
+        if (starImage.sprite == starSprite)
+        {
+            starImage.sprite = yellowStarSprite;
+        }
+        else
+        {
+            starImage.sprite = starSprite;
+        }
     }
 }
