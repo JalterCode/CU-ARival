@@ -15,39 +15,20 @@ public class findRoomScript : MonoBehaviour
     // public Button Button6107;
     //public TMP_Dropdown dropDown;
 
-    private SortedDictionary<string, Button> roomButtons = new SortedDictionary<string, Button>();
+    private SortedDictionary<string, ButtonADT> roomButtons = new SortedDictionary<string, ButtonADT>();
     [SerializeField] private RectTransform panel;
-    public Button buttonPrefab;
+    public ButtonADT buttonPrefab;
     
     private static string destination;
     private static string realDestination;
-    private Button clickedButton; 
+    private ButtonADT clickedButton; 
     public TMP_Text locationText;
     public static string endPoint;
+    public Sprite starSprite;
 
     void Start()
     {
-        // if (Button5201 == null)
-        // {
-        //     Debug.LogError("Button5201 is not assigned!");
-        //     return;
-        // }
-
-        // if (Button5107 == null)
-        // {
-        //     Debug.LogError("Button5107 is not assigned!");
-        //     return;
-        // }
-
-        // Button5201.onClick.AddListener(() => OnNavigateButtonClicked(Button5201));
-        // Button5107.onClick.AddListener(() => OnNavigateButtonClicked(Button5107));
-        // Button5111.onClick.AddListener(() => OnNavigateButtonClicked(Button5111));
-        // Button5105.onClick.AddListener(() => OnNavigateButtonClicked(Button5105));
-        // Button5101.onClick.AddListener(() => OnNavigateButtonClicked(Button5101));
-        // Button6107.onClick.AddListener(() => OnNavigateButtonClicked(Button6107));
-        
         GenerateButtons();
-        
     }
 
     public void GenerateButtons() { 
@@ -66,7 +47,7 @@ public class findRoomScript : MonoBehaviour
 
         foreach (Transform btn in panel)
         {
-            Button button = btn.GetComponent<Button>();
+            ButtonADT button = btn.GetComponent<ButtonADT>();
             roomButtons[btn.name] = button;
         }
 
@@ -76,10 +57,17 @@ public class findRoomScript : MonoBehaviour
         {
             if (!roomButtons.ContainsKey(roomName)) // If button does not exist, create it
             {
-                Button newButton = Instantiate(buttonPrefab, panel);
+                ButtonADT newButton = Instantiate(buttonPrefab, panel);
+
                 newButton.name = roomName;
                 newButton.GetComponentInChildren<TMP_Text>().text = roomName.Replace("Button", "");
                 newButton.onClick.AddListener(() => OnNavigateButtonClicked(newButton));
+
+                Image starImage = new GameObject("StarImage").AddComponent<Image>();
+                starImage.transform.SetParent(newButton.transform);
+                starImage.sprite = starSprite;
+                starImage.rectTransform.sizeDelta = new Vector2(150, 150);
+                starImage.rectTransform.anchoredPosition = new Vector2(100, 0);
 
                 roomButtons[roomName] = newButton;
             }
@@ -116,7 +104,7 @@ public class findRoomScript : MonoBehaviour
         return null;
     }
 
-    private void OnNavigateButtonClicked(Button button)
+    private void OnNavigateButtonClicked(ButtonADT button)
     {
         clickedButton = button; 
         string selectedRoom = GetRoom();
