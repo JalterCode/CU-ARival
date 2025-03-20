@@ -97,8 +97,8 @@ public class findRoomScript : MonoBehaviour
                 Image starImage = new GameObject("StarImage").AddComponent<Image>();
                 starImage.transform.SetParent(newButton.transform);
                 starImage.sprite = starSprite;
-                starImage.rectTransform.sizeDelta = new Vector2(150, 150);
-                starImage.rectTransform.anchoredPosition = new Vector2(100, 0);
+                starImage.rectTransform.sizeDelta = new Vector2(90, 90);
+                starImage.rectTransform.anchoredPosition = new Vector2(-45, 0);
                 Button starButton = starImage.gameObject.AddComponent<Button>();
                 starButton.onClick.AddListener(() => OnStarClicked(starImage));
 
