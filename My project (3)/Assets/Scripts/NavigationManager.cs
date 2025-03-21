@@ -21,6 +21,7 @@ public class NavigationManager : MonoBehaviour
 
     public Button toggleStairs;
     public findRoomScript roomScript;
+
     [SerializeField] private Animator notificationAnimator;
 
     [SerializeField] private TextMeshProUGUI notificationText;
@@ -106,6 +107,8 @@ public class NavigationManager : MonoBehaviour
  {
     if (!isScanningEnabled) return;
 
+
+
     Debug.Log("Image detected");
 
     foreach (var newImage in eventArgs.added)
@@ -113,7 +116,7 @@ public class NavigationManager : MonoBehaviour
         scanUI.SetBool("Scanned", true);
         imageName = newImage.referenceImage.name;
         GameObject targetObject = GameObject.Find(imageName);
-
+        roomScript.GenerateButtons();
         if (targetObject != null)
         {
             xrOrigin.MoveCameraToWorldLocation(targetObject.transform.position);

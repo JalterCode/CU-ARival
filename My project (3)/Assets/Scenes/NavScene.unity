@@ -2811,7 +2811,7 @@ PrefabInstance:
     - target: {fileID: 3988073549975742267, guid: cb8efc8d332faaf4b963210f3ca714c5,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 160
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 3988073549975742267, guid: cb8efc8d332faaf4b963210f3ca714c5,
         type: 3}
@@ -2856,12 +2856,12 @@ PrefabInstance:
     - target: {fileID: 3988073549975742267, guid: cb8efc8d332faaf4b963210f3ca714c5,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 675
+      value: 634
       objectReference: {fileID: 0}
     - target: {fileID: 3988073549975742267, guid: cb8efc8d332faaf4b963210f3ca714c5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1312.9999
+      value: 1285
       objectReference: {fileID: 0}
     - target: {fileID: 3988073549975742267, guid: cb8efc8d332faaf4b963210f3ca714c5,
         type: 3}
@@ -6176,14 +6176,14 @@ RectTransform:
   m_GameObject: {fileID: 1312004134}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 974916739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 60, y: -1310}
+  m_AnchoredPosition: {x: -90, y: -1310}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1312004136
@@ -6276,7 +6276,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 48e0ade47654c5e48919bf10668360ab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a3d9a571f4e53aa4babd4fa4523f7397, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9859,7 +9859,7 @@ MonoBehaviour:
   startingPoint: {fileID: 331264290}
   lineRenderer: {fileID: 1973793308}
   toggleStairs: {fileID: 0}
-  roomScript: {fileID: 0}
+  roomScript: {fileID: 974916740}
   notificationAnimator: {fileID: 440112293}
   notificationText: {fileID: 296053480}
   animator: {fileID: 2123387447}
