@@ -61,6 +61,14 @@ public class NavigationManager : MonoBehaviour
 
     public TMP_Text nextTurnTMP;
 
+    public AudioClip leftTurnSound;
+    public AudioClip rightTurnSound;
+    public AudioClip straightSound;
+
+    public AudioSource turnSound;
+    private int audioDelay = 0;
+
+
     void Start()
     {
         scanUI.SetBool("NotScanned",true);
@@ -229,15 +237,33 @@ public class NavigationManager : MonoBehaviour
                     if (turnDirection == 1)
                     {
                         greenUIImage.sprite = rightArrow;
+                        
+                        
+                        if (turnDistance<3 && audioDelay>=10){
+                            turnSound.PlayOneShot(rightTurnSound);
+                            audioDelay = 0;
+                        }
                     }
                     else if (turnDirection == 2)
                     {
                         greenUIImage.sprite = leftArrow;
+                        if (turnDistance<3 &&audioDelay>=10){
+                            
+                            turnSound.PlayOneShot(leftTurnSound);
+                            audioDelay = 0;
+                        }
                     }
                     else
                     {
                         greenUIImage.sprite = straightArrow;
+                        if (audioDelay>=10){
+                            
+                            turnSound.PlayOneShot(straightSound);
+                            audioDelay = 0;
+                        }
                     }
+                    audioDelay++;
+                
                 }
                 else
                 {
