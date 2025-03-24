@@ -16,10 +16,7 @@ public class NavigationManager : MonoBehaviour
     public LineRenderer lineRenderer;
     float elapsed;
     public NavMeshPath path;
-    
 
-
-    public Button toggleStairs;
     public findRoomScript roomScript;
 
     [SerializeField] private Animator notificationAnimator;
@@ -37,7 +34,6 @@ public class NavigationManager : MonoBehaviour
     // distance management
     public TextMeshProUGUI textMeshPro; 
     private bool isUpdating = false;
-    private Text distanceText;
     private WaitForSeconds waitTime;
 
     public Button arrived;
@@ -50,7 +46,7 @@ public class NavigationManager : MonoBehaviour
 
     public TMP_Text greenUIText;
 
-    private Boolean isMultiFloorNavigating =     false;
+    private bool isMultiFloorNavigating = false;
 
     private int rescanCount = 0;
 
@@ -94,7 +90,6 @@ public class NavigationManager : MonoBehaviour
             lineRenderer.widthCurve = curve;
         }
         //distance check
-        distanceText = GetComponent<Text>();    
         waitTime = new WaitForSeconds(0.5f); 
         StartUpdatingDistance();
     }
@@ -116,12 +111,14 @@ public class NavigationManager : MonoBehaviour
         scanUI.SetBool("Scanned", true);
         imageName = newImage.referenceImage.name;
         GameObject targetObject = GameObject.Find(imageName);
-        roomScript.GenerateButtons();
+
+
         if (targetObject != null)
         {
             xrOrigin.MoveCameraToWorldLocation(targetObject.transform.position);
             xrOrigin.MatchOriginUpCameraForward(targetObject.transform.up, targetObject.transform.forward);
 
+            Debug.Log("line before animator");
             animator.SetBool("ButtonPress", true);
 
             Debug.Log($"XR Origin adjusted to align with {imageName} location.");
@@ -142,6 +139,8 @@ public class NavigationManager : MonoBehaviour
             greenUI.SetTrigger("Navigating");
         }
     }
+    
+
  }
 
     void Update()

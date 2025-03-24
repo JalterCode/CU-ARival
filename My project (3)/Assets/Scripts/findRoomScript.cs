@@ -26,6 +26,8 @@ public class findRoomScript : MonoBehaviour
     private Button clickedButton; 
     public TMP_Text locationText;
     public static string endPoint;
+    public TMP_FontAsset buttonFont;
+
 
     // Added for sort button
     public Button sortButton;               
@@ -52,7 +54,7 @@ public class findRoomScript : MonoBehaviour
         // Button5101.onClick.AddListener(() => OnNavigateButtonClicked(Button5101));
         // Button6107.onClick.AddListener(() => OnNavigateButtonClicked(Button6107));
         
-        //GenerateButtons();
+        GenerateButtons();
         SortRoomsByFloor();
         if (sortButton != null)
         {
@@ -66,7 +68,7 @@ public class findRoomScript : MonoBehaviour
 
     public void GenerateButtons() { 
 
-        GameObject startingLocation = GameObject.Find(NavigationManager.instance.GetImageName()); 
+        GameObject startingLocation = GameObject.Find("5107"); 
         List<Transform> roomParents = GetFloorLocations();
         List<string> roomNames = new List<string>();
         List<GameObject> roomObjects = new List<GameObject>();
@@ -126,13 +128,13 @@ public class findRoomScript : MonoBehaviour
                 GameObject distanceTextObj = new GameObject("DistanceText");
                 distanceTextObj.transform.SetParent(newButton.transform);
                 TextMeshProUGUI distanceText = distanceTextObj.AddComponent<TextMeshProUGUI>();
-                distanceText.text = $"{objectDistance:F2} metres";
-                distanceText.rectTransform.sizeDelta = new Vector2(500, 30);
-                distanceText.rectTransform.anchoredPosition = new Vector2(200, 0);
+                distanceText.text = $"{objectDistance:F2} metres away";
+                distanceText.rectTransform.sizeDelta = new Vector2(600, 30);
+                distanceText.rectTransform.anchoredPosition = new Vector2(180, 0);
                 distanceText.alignment = TextAlignmentOptions.Center;
                 distanceText.fontSize = 50;
                 distanceText.color = Color.grey;
-                distanceText.font = TMP_Settings.defaultFontAsset; 
+                distanceText.font = buttonFont; 
 
                 if (startingLocation.name.Substring(0, 1) != roomName.Substring(0, 1)) distanceText.text = "";
 
@@ -222,7 +224,7 @@ public class findRoomScript : MonoBehaviour
     }
 }
 
-    public TMP_Text GetlocationText(TMP_Text NewLocationText) { return locationText;}
+    public TMP_Text GetlocationText() { return locationText;}
 
         //panel getter for sort button
     public RectTransform GetPanel() { return panel; }
