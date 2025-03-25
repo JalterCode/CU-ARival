@@ -2810,7 +2810,7 @@ MonoBehaviour:
   panel: {fileID: 2087955257}
   buttonPrefab: {fileID: 619229136}
   locationText: {fileID: 0}
-  sortButton: {fileID: 0}
+  sortDropdown: {fileID: 0}
   starSprite: {fileID: 0}
   yellowStarSprite: {fileID: 0}
 --- !u!1 &1023917089
@@ -5355,6 +5355,10 @@ MonoBehaviour:
   leftArrow: {fileID: 21300000, guid: 542bea576e10b464b8d0a365fb198f73, type: 3}
   rightArrow: {fileID: 21300000, guid: ced2b5e247f9a974caa98566a77aff1c, type: 3}
   nextTurnTMP: {fileID: 432857142}
+  leftTurnSound: {fileID: 0}
+  rightTurnSound: {fileID: 0}
+  straightSound: {fileID: 0}
+  turnSound: {fileID: 0}
 --- !u!1 &2087955256
 GameObject:
   m_ObjectHideFlags: 0
@@ -5859,7 +5863,7 @@ MonoBehaviour:
   panel: {fileID: 2087955257}
   buttonPrefab: {fileID: 619229136}
   locationText: {fileID: 0}
-  sortButton: {fileID: 0}
+  sortDropdown: {fileID: 0}
   starSprite: {fileID: 0}
   yellowStarSprite: {fileID: 0}
 --- !u!114 &2123387451
