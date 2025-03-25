@@ -28,7 +28,7 @@ public class findRoomScript : MonoBehaviour
     public static string endPoint;
 
     // Added for sort button
-    public Button sortButton;               
+    [SerializeField] private TMP_Dropdown sortDropdown;
     public Sprite starSprite;
     public Sprite yellowStarSprite;
     void Start()
@@ -54,13 +54,19 @@ public class findRoomScript : MonoBehaviour
         
         GenerateButtons();
         SortRoomsByFloor();
-        if (sortButton != null)
+        if (sortDropdown != null)
         {
-            sortButton.onClick.AddListener(SortRoomsByFloor);
+            // Populate dropdown options
+            sortDropdown.ClearOptions();
+            List<string> options = new List<string> { "Sort by Distance", "Sort by Floor", "Sort by Schedule" };
+            sortDropdown.AddOptions(options);
+
+            // Add listener for dropdown value change
+            sortDropdown.onValueChanged.AddListener(delegate {OnSortOptionSelected(sortDropdown.value); });
         }
         else
         {
-            Debug.LogWarning("Sort button not assigned in findRoomScript!");
+            Debug.LogWarning("SortDropdown not assigned in findRoomScript");
         }
     }
 
@@ -193,7 +199,7 @@ public class findRoomScript : MonoBehaviour
         //panel getter for sort button
     public RectTransform GetPanel() { return panel; }
    
-   //sort the rooms by floor
+ //sort the rooms by floor
     public void SortRoomsByFloor()
     {
         List<RoomData> roomDataList = new List<RoomData>();
@@ -272,4 +278,83 @@ public class findRoomScript : MonoBehaviour
             starImage.sprite = starSprite;
         }
     }
+
+    // Sorting Methods for Dropdown
+    private void OnSortOptionSelected(int index)
+    {
+        switch (index)
+        {
+            case 0: // Sort by Distance
+                SortRoomsByDistance();
+                break;
+            case 1: // Sort by Floor
+                SortRoomsByFloor();
+                break;
+            case 2: // Sort by Schedule (placeholder)
+                Debug.Log("Sort by Schedule not implemented yet.");
+                break;
+            default:
+                Debug.LogWarning("Invalid sort option selected.");
+                break;
+        }
+    }
+    public void SortRoomsByDistance()
+    {
+        if (NavigationManager.instance == null)
+        {
+            Debug.LogWarning("NavigationManager instance not found!");
+            return;
+        }
+
+        Vector3 userPosition = NavigationManager.instance.startingPoint.position;
+        List<RoomData> roomDataList = new List<RoomData>();
+
+        foreach (var kvp in roomButtons)
+        {
+            RoomData roomData = new RoomData
+            {
+                roomNumber = kvp.Key.Replace("Button", ""),
+                button = kvp.Value
+            };
+            roomDataList.Add(roomData);
+        }
+
+        if (roomDataList.Count == 0)
+        {
+            Debug.LogWarning("No rooms to sort!");
+            return;
+        }
+
+        roomDataList.Sort((a, b) =>
+        {
+            GameObject roomA = GameObject.Find(a.roomNumber);
+            GameObject roomB = GameObject.Find(b.roomNumber);
+
+            if (roomA == null || roomB == null)
+            {
+                Debug.LogError($"Room not found: {a.roomNumber} or {b.roomNumber}");
+                return 0;
+            }
+
+            float distanceA = Vector3.Distance(userPosition, roomA.transform.position);
+            float distanceB = Vector3.Distance(userPosition, roomB.transform.position);
+            return distanceA.CompareTo(distanceB); // Closest first
+        });
+
+        for (int i = 0; i < roomDataList.Count; i++)
+        {
+            if (roomDataList[i].button != null)
+            {
+                roomDataList[i].button.transform.SetSiblingIndex(i);
+            }
+        }
+
+        Debug.Log("Rooms sorted by distance from user location.");
+
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
+    }
+
 }
