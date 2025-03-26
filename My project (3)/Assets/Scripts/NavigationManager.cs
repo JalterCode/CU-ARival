@@ -136,6 +136,8 @@ public class NavigationManager : MonoBehaviour
             greenUI.SetTrigger("Navigating");
         }
 
+        Debug.Log("Now Navigating");
+
     }
 }
 
@@ -145,6 +147,7 @@ private IEnumerator GenerateButtonsDelayed(GameObject startingLocation)
 
     roomScript.GenerateButtons(startingLocation);
 
+    Debug.Log("We back");
 
 }
 
@@ -156,6 +159,7 @@ private IEnumerator GenerateButtonsDelayed(GameObject startingLocation)
             elapsed -= 1.0f;
             if (endPoint != null)
             {
+                Debug.Log("calculating path");
                 NavMesh.CalculatePath(startingPoint.position, endPoint.position, NavMesh.AllAreas, path);
                 lineRenderer.positionCount = path.corners.Length;
                 lineRenderer.SetPositions(path.corners);
