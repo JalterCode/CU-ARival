@@ -157,33 +157,58 @@ private IEnumerator GenerateButtonsDelayed(GameObject startingLocation)
         if (elapsed > 1.0f)
         {
             elapsed -= 1.0f;
-            if (endPoint != null)
-            {
-                Debug.Log("calculating path");
-                NavMesh.CalculatePath(startingPoint.position, endPoint.position, NavMesh.AllAreas, path);
-                lineRenderer.positionCount = path.corners.Length;
-                lineRenderer.SetPositions(path.corners);
-                Debug.Log($"Path status: {path.status}, Corners count: {path.corners.Length}");
-            }
+             if (endPoint != null)
+ {
+     // Keep this Debug.Log or remove if too noisy
+     // Debug.Log("calculating path");
+
+     // Calculate the path
+     NavMesh.CalculatePath(startingPoint.position, endPoint.position, NavMesh.AllAreas, path);
+
+     // *** ADD THIS BLOCK TO CHECK STATUS ***
+     if (path.status == NavMeshPathStatus.PathInvalid) {
+         Debug.LogError($"Update(): Path calculation failed - PathInvalid. StartPos: {startingPoint.position}, EndPos: {endPoint.position}. Are both points on the NavMesh?");
+     } else if (path.status == NavMeshPathStatus.PathPartial) {
+         Debug.LogWarning($"Update(): Path calculation resulted in a partial path. StartPos: {startingPoint.position}, EndPos: {endPoint.position}. Cannot fully reach destination.");
+     }
+     // *** END ADDED BLOCK ***
+
+     lineRenderer.positionCount = path.corners.Length;
+     lineRenderer.SetPositions(path.corners);
+
+     // Modify existing log slightly for clarity
+     // Debug.Log($"Path status: {path.status}, Corners count: {path.corners.Length}");
+ } else {
+     // Optional: Log if endpoint is null during update
+     // Debug.Log("Update(): endPoint is null, not calculating path.");
+     lineRenderer.positionCount = 0; // Clear the line if no endpoint
+ }
         }
     }
 
     public void UpdateNavigationTarget(string roomName)
+{
+    Debug.Log($"Attempting to update navigation target to: {roomName}"); // <-- ADD
+    GameObject roomObject = GameObject.Find(roomName);
+
+    if (roomObject != null)
+{
+    // Log Both Positions and Parent Info
+    Debug.Log($"UpdateNavigationTarget: Found '{roomObject.name}'. " +
+              $"WORLD Pos: {roomObject.transform.position}. " +
+              $"LOCAL Pos: {roomObject.transform.localPosition}. " +
+              $"Parent: {(roomObject.transform.parent != null ? roomObject.transform.parent.name : "None")}");
+
+    endPoint = roomObject.transform;
+    count = 0; // Reset arrival count
+}
+// ... rest of the function ...
+    else
     {
-        GameObject roomObject = GameObject.Find(roomName);
-
-
-        if (roomObject != null)
-        {
-            endPoint = roomObject.transform;
-            count = 0;
-            Debug.Log("Navigation room updated: " + roomName);
-        }
-        else
-        {
-            Debug.LogError("Room not found: " + roomName);
-        }
+        endPoint = null; // <-- ADD: Make sure it's null if not found
+        Debug.LogError("UpdateNavigationTarget FAILED: Room GameObject not found: " + roomName); // <-- Modify existing log
     }
+}
     //DISTANCE CHECK
 
     void StartUpdatingDistance()
