@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/BuildingSelectorScene.unity
     guid: 56761a436b21040e7ba5fc033fa6bc71
   - enabled: 1
+    path: Assets/Scenes/policyScene.unity
+    guid: 2f83f96ea8aa0e440aa82b97fa53928a
+  - enabled: 1
     path: Assets/Scenes/Building Selector.unity
     guid: c1ec91a5ae7dea94eabb2aeed2b6b35a
   - enabled: 1
