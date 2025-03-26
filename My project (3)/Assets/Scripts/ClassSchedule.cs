@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +17,11 @@ public class ClassSchedule : MonoBehaviour
     private string startTime;
     private string endTime;
     
+    public ClassSchedule() {
+        days = new List<Days>();
+        startTime = null;
+        endTime = null;
+    }
     public ClassSchedule(List<Days> days, string startTime, string endTime) {
         this.days = days;
         this.startTime = startTime;
