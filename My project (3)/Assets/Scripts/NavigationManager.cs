@@ -98,11 +98,9 @@ public class NavigationManager : MonoBehaviour
 
     private void OnDisable() => trackedImageManager.trackedImagesChanged -= OnChanged;
 
-    private void OnChanged(ARTrackedImagesChangedEventArgs eventArgs)
- {
+  private void OnChanged(ARTrackedImagesChangedEventArgs eventArgs)
+{
     if (!isScanningEnabled) return;
-
-
 
     Debug.Log("Image detected");
 
@@ -112,16 +110,15 @@ public class NavigationManager : MonoBehaviour
         imageName = newImage.referenceImage.name;
         GameObject targetObject = GameObject.Find(imageName);
 
-
         if (targetObject != null)
         {
             xrOrigin.MoveCameraToWorldLocation(targetObject.transform.position);
             xrOrigin.MatchOriginUpCameraForward(targetObject.transform.up, targetObject.transform.forward);
 
-            Debug.Log("line before animator");
             animator.SetBool("ButtonPress", true);
-
             Debug.Log($"XR Origin adjusted to align with {imageName} location.");
+
+            StartCoroutine(GenerateButtonsDelayed(targetObject));
         }
         else
         {
@@ -138,10 +135,18 @@ public class NavigationManager : MonoBehaviour
         if(isMultiFloorNavigating){
             greenUI.SetTrigger("Navigating");
         }
-    }
-    
 
- }
+    }
+}
+
+private IEnumerator GenerateButtonsDelayed(GameObject startingLocation)
+{
+    yield return null;
+
+    roomScript.GenerateButtons(startingLocation);
+
+
+}
 
     void Update()
     {

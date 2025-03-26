@@ -33,8 +33,12 @@ public class findRoomScript : MonoBehaviour
     public Button sortButton;               
     public Sprite starSprite;
     public Sprite yellowStarSprite;
+
+    public Transform playerCamera;
     void Start()
     {
+
+        Debug.Log("Find room script");
         // if (Button5201 == null)
         // {
         //     Debug.LogError("Button5201 is not assigned!");
@@ -54,8 +58,6 @@ public class findRoomScript : MonoBehaviour
         // Button5101.onClick.AddListener(() => OnNavigateButtonClicked(Button5101));
         // Button6107.onClick.AddListener(() => OnNavigateButtonClicked(Button6107));
         
-        GenerateButtons();
-        SortRoomsByFloor();
         if (sortButton != null)
         {
             sortButton.onClick.AddListener(SortRoomsByFloor);
@@ -66,9 +68,9 @@ public class findRoomScript : MonoBehaviour
         }
     }
 
-    public void GenerateButtons() { 
+    public void GenerateButtons(GameObject startingLocation) { 
 
-        GameObject startingLocation = GameObject.Find("5107"); 
+
         List<Transform> roomParents = GetFloorLocations();
         List<string> roomNames = new List<string>();
         List<GameObject> roomObjects = new List<GameObject>();
@@ -107,7 +109,8 @@ public class findRoomScript : MonoBehaviour
         foreach (string roomName in roomNames)
         {
             if (!roomButtons.ContainsKey(roomName)) // If button does not exist, create it
-            {                Button newButton = Instantiate(buttonPrefab, panel);
+            {                
+                Button newButton = Instantiate(buttonPrefab, panel);
                 newButton.name = roomName;
                 newButton.GetComponentInChildren<TMP_Text>().text = roomName;
                 newButton.onClick.AddListener(() => OnNavigateButtonClicked(newButton));
@@ -141,6 +144,8 @@ public class findRoomScript : MonoBehaviour
 
             }
         }
+                SortRoomsByFloor();
+
     }
 
     public List<Transform> GetFloorLocations() {
