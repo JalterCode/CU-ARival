@@ -56,6 +56,16 @@ public class NavigationManager : MonoBehaviour
     public Sprite leftArrow;
     public Sprite rightArrow;
 
+    
+    public TMP_Text nextTurnTMP;
+
+    public AudioClip leftTurnSound;
+    public AudioClip rightTurnSound;
+    public AudioClip straightSound;
+
+    public AudioSource turnSound;
+    private int audioDelay = 0;
+
 
     void Start()
     {
@@ -191,7 +201,7 @@ private IEnumerator GenerateButtonsDelayed(GameObject startingLocation)
             StartCoroutine(UpdateDistance());
         }
     }
-   IEnumerator UpdateDistance(){
+    IEnumerator UpdateDistance(){
 
         while (true) 
         {
@@ -228,18 +238,40 @@ private IEnumerator GenerateButtonsDelayed(GameObject startingLocation)
                             Debug.Log($"WWWWWWWWWWWW {findRoomScript.RealDestination()}");
                         }
                     } 
-                    if (turn() == 1)
+                    int turnDirection = 0;
+                    float turnDistance;
+                    (turnDirection, turnDistance) = turn();
+                    nextTurnTMP.text = turnDistance.ToString("F1") + " m";
+                    if (turnDirection == 1)
                     {
                         greenUIImage.sprite = rightArrow;
+                        
+                        
+                        if (turnDistance<3 && audioDelay>=10){
+                            turnSound.PlayOneShot(rightTurnSound);
+                            audioDelay = 0;
+                        }
                     }
-                    else if (turn() == 2)
+                    else if (turnDirection == 2)
                     {
                         greenUIImage.sprite = leftArrow;
+                        if (turnDistance<3 &&audioDelay>=10){
+                            
+                            turnSound.PlayOneShot(leftTurnSound);
+                            audioDelay = 0;
+                        }
                     }
                     else
                     {
                         greenUIImage.sprite = straightArrow;
+                        if (audioDelay>=10){
+                            
+                            turnSound.PlayOneShot(straightSound);
+                            audioDelay = 0;
+                        }
                     }
+                    audioDelay++;
+                
                 }
                 else
                 {
@@ -270,31 +302,33 @@ private IEnumerator GenerateButtonsDelayed(GameObject startingLocation)
         return crossProductY; // Positive y means left turn
     }
 
-    public int turn()
+public (int, float) turn()
     {
         if (path == null || path.corners.Length < 3)
         {
-            return 0;
+            return (0, 0f); // Straight, no distance
         }
 
         for (int i = 1; i < path.corners.Length - 1; i++)
         {
-            float turn = TurnCheck(path.corners[i - 1], path.corners[i], path.corners[i + 1]);
-            if (turn>0)
+            float turnValue = TurnCheck(path.corners[i - 1], path.corners[i], path.corners[i + 1]);
+            if (turnValue > 0)
             {
-                //right
-                return 1;
+                // Right turn
+                float distanceToTurn = Vector3.Distance(startingPoint.position, path.corners[i]);
+                return (1, distanceToTurn);
             }
-            else if (turn<0){
-                //left
-                return 2;
+            else if (turnValue < 0)
+            {
+                // Left turn
+                float distanceToTurn = Vector3.Distance(startingPoint.position, path.corners[i]);
+                return (2, distanceToTurn);
             }
-
         }
-        //straight
-        return 0;
-    }
 
+        // Straight 
+        return (0, Vector3.Distance(startingPoint.position, path.corners[path.corners.Length - 1])); // Straight, distance to end
+    }
 
 
 
@@ -370,3 +404,4 @@ public string GetImageName() {
 
     }
 }
+ 
