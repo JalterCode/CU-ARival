@@ -5953,6 +5953,9 @@ MonoBehaviour:
   scanUIText: {fileID: 1832111125}
   arrivedUIText: {fileID: 230504095}
   scanNotifText: {fileID: 1486429217}
+  audio: {fileID: 1223628733}
+  checkmarkMute: {fileID: 0}
+  checkmarkLanguage: {fileID: 0}
 --- !u!114 &1428982609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7710,7 +7713,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1666447175
 RectTransform:
   m_ObjectHideFlags: 0
