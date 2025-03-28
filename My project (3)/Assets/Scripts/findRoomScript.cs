@@ -70,6 +70,7 @@ public class findRoomScript : MonoBehaviour
     }
 
     public void GenerateButtons(GameObject startingLocation) { 
+        Debug.Log("Hello?");
 
 
         List<Transform> roomParents = GetFloorLocations();
@@ -82,7 +83,8 @@ public class findRoomScript : MonoBehaviour
             foreach (Transform room in parent)
             {   
                 if(double.TryParse(room.name, out _)) {
-                    roomNames.Add(room.name); 
+                    roomNames.Add(room.name);
+                    Debug.Log("added room");
                 }
                 
             }
