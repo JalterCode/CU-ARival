@@ -846,8 +846,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1635, y: 750}
-  m_SizeDelta: {x: 160, y: 50}
+  m_AnchoredPosition: {x: 430, y: 1050}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &144969555
 MonoBehaviour:
@@ -4215,8 +4215,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1943, y: 785}
-  m_SizeDelta: {x: 160, y: 50}
+  m_AnchoredPosition: {x: 430, y: 830}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &753350360
 MonoBehaviour:
@@ -6115,9 +6115,9 @@ MonoBehaviour:
   muteSounds: {fileID: 144969559}
   isMute: 0
   settingsText: {fileID: 1523898474}
-  staircaseNavText: {fileID: 1673381038}
-  muteSoundsText: {fileID: 1308712611}
-  frenchToggleText: {fileID: 2045860936}
+  staircaseNavText: {fileID: 2136875207}
+  muteSoundsText: {fileID: 1054140728}
+  frenchToggleText: {fileID: 847728390}
   searchPanelInfoText: {fileID: 1700971080}
   placeholderSearch: {fileID: 500762935}
   filterButtonText: {fileID: 872263688}
@@ -6126,6 +6126,9 @@ MonoBehaviour:
   scanUIText: {fileID: 1725542725}
   arrivedUIText: {fileID: 660642409}
   scanNotifText: {fileID: 296053480}
+  audio: {fileID: 0}
+  checkmarkMute: {fileID: 1480351579}
+  checkmarkLanguage: {fileID: 1429628698}
 --- !u!114 &1027570588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7498,7 +7501,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Mute
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9023,8 +9026,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1592, y: 408}
-  m_SizeDelta: {x: 160, y: 50}
+  m_AnchoredPosition: {x: 430, y: 940}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1513263549
 MonoBehaviour:
@@ -9858,7 +9861,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Toggle Staircase Navigation
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10544,14 +10547,14 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1523898473}
-  - {fileID: 1513263548}
-  - {fileID: 144969554}
-  - {fileID: 753350359}
   - {fileID: 1314421884}
   - {fileID: 1886913260}
   - {fileID: 1351315435}
   - {fileID: 916684682}
   - {fileID: 1011947588}
+  - {fileID: 1513263548}
+  - {fileID: 144969554}
+  - {fileID: 753350359}
   m_Father: {fileID: 974916739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -11766,7 +11769,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Language: English'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

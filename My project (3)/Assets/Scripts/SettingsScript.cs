@@ -35,6 +35,10 @@ public class SettingsScript : MonoBehaviour
     //Scan notif
     public TMP_Text scanNotifText;
 
+    //audio source
+    public AudioSource audio;
+    public RectTransform checkmarkMute;
+    public RectTransform checkmarkLanguage;
 
 
     void Start()
@@ -93,5 +97,6 @@ public class SettingsScript : MonoBehaviour
     void ToggleMute()
     {
         isMute = !isMute;
+        audio.mute = isMute;    
     }
 }
