@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.UI;
 using System;
+using UnityEditor.VersionControl;
 
 public class SearchScript : MonoBehaviour
 {
@@ -23,6 +24,33 @@ public class SearchScript : MonoBehaviour
     public Sprite starSprite;
     public Sprite yellowStarSprite;
 
+    // schedule
+    
+    public Button scheduleButton;
+    public GameObject schedulePanel;
+    public Button closeSchedulePanel;
+    public TextMeshProUGUI className;
+    public TextMeshProUGUI startTime;
+    public TextMeshProUGUI endTime;
+    public Button addClass;
+
+    //days of week
+    
+    public GameObject daysOfWeekPanel;
+    public Button closeDaysOfWeekPanel;
+    public Button Mon;
+    public Button Tue;
+    public Button Wed;
+    public Button Thu;
+    public Button Fri;
+    public Button submitButton;
+    private bool mondayToggle = false;
+    private bool tuesdayToggle = false;
+    private bool wednesdayToggle = false;
+    private bool thursdayToggle = false;
+    private bool fridayToggle = false;
+
+
     void Start()
     {
         filterListPanel.SetActive(false);
@@ -31,7 +59,23 @@ public class SearchScript : MonoBehaviour
         filterButton.onClick.AddListener(() => enableFilter());
         closeFilterList.onClick.AddListener(() => closeFilter());
         filterFavorite.onClick.AddListener(() => Favorite());
+    
+        schedulePanel.SetActive(false);
+        scheduleButton.onClick.AddListener(() => enableSchedule());
+        closeSchedulePanel.onClick.AddListener(() => closeSchedule());
+        addClass.onClick.AddListener(() => AddClass());
+
+        daysOfWeekPanel.SetActive(false);
+        closeDaysOfWeekPanel.onClick.AddListener(() => closeDOW());
+        Mon.onClick.AddListener(() => Monday());
+        Tue.onClick.AddListener(() => Tuesday());
+        Wed.onClick.AddListener(() => Wednesday());
+        Thu.onClick.AddListener(() => Thursday());
+        Fri.onClick.AddListener(() => Friday());
+        submitButton.onClick.AddListener(() => submit());
     }
+
+    
 
     private void InitializeRoomButtons()
     {
@@ -54,11 +98,38 @@ public class SearchScript : MonoBehaviour
         }
     }
 
+    void AddClass() {
+        schedulePanel.SetActive(false);
+        daysOfWeekPanel.SetActive(true);
+    }
     void enableFilter(){
+        schedulePanel.SetActive(false);
         filterListPanel.SetActive(true);
     }
     void closeFilter(){
         filterListPanel.SetActive(false);
+    }
+
+     private void enableSchedule()
+    {
+        schedulePanel.SetActive(true);
+        filterListPanel.SetActive(false);
+    }
+
+     private void closeSchedule()
+    {
+        schedulePanel.SetActive(false);
+    }
+
+    private void enableDOW()
+    {
+        daysOfWeekPanel.SetActive(true);
+        filterListPanel.SetActive(false);
+    }
+
+     private void closeDOW()
+    {
+        daysOfWeekPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -102,4 +173,98 @@ public class SearchScript : MonoBehaviour
             }
         }
     }
+
+    private void Monday()
+    {
+        if (mondayToggle == false)
+        {
+            mondayToggle = true;
+            Mon.GetComponent<Image>().color = Color.green;
+        }
+        else
+        {
+            mondayToggle = false;
+            Mon.GetComponent<Image>().color = Color.white;
+        }
+    }
+
+    private void Tuesday()
+    {
+        if (tuesdayToggle == false)
+        {
+            tuesdayToggle = true;
+            Tue.GetComponent<Image>().color = Color.green;
+        }
+        else
+        {
+            tuesdayToggle = false;
+            Tue.GetComponent<Image>().color = Color.white;
+        }
+    }
+
+    private void Wednesday()
+    {
+        if (wednesdayToggle == false)
+        {
+            wednesdayToggle = true;
+            Wed.GetComponent<Image>().color = Color.green;
+        }
+        else
+        {
+            wednesdayToggle = false;
+            Wed.GetComponent<Image>().color = Color.white;
+        }
+    }
+
+    private void Thursday()
+    {
+        if (thursdayToggle == false)
+        {
+            thursdayToggle = true;
+            Thu.GetComponent<Image>().color = Color.green;
+        }
+        else
+        {
+            thursdayToggle = false;
+            Thu.GetComponent<Image>().color = Color.white;
+        }
+    }
+
+    private void Friday()
+    {
+        if (fridayToggle == false)
+        {
+            fridayToggle = true;
+            Fri.GetComponent<Image>().color = Color.green;
+        }
+        else
+        {
+            fridayToggle = false;
+            Fri.GetComponent<Image>().color = Color.white;
+        }
+    }
+
+    void submit() {
+        daysOfWeekPanel.SetActive(false);
+        List<Days> days = new List<Days>();
+        ScheduleManager sm = new ScheduleManager();
+        if (mondayToggle) {
+            days.Add(Days.Monday);
+        }
+        if (tuesdayToggle) {
+            days.Add(Days.Tuesday);
+        }
+        if (wednesdayToggle) {
+            days.Add(Days.Wednesday);
+        }
+        if (thursdayToggle) {
+            days.Add(Days.Thursday);
+        }
+        if (fridayToggle) {
+            days.Add(Days.Friday);
+        }
+
+        sm.AddSchedule(className.text, days, startTime.text, endTime.text);
+    }
+
 }
