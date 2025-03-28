@@ -41,7 +41,7 @@ public class ScheduleManager
     }
 
     // Load schedules from JSON
-    private void LoadSchedule()
+    private List<ClassSchedule> LoadSchedule()
     {
         if (File.Exists(filePath))
         {
@@ -66,6 +66,7 @@ public class ScheduleManager
 
             Debug.Log("File not found, creating new schedule file!");
         }
+        return schedules;
     }
 
     // Display saved schedules
