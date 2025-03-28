@@ -23,6 +23,12 @@ public class SearchScript : MonoBehaviour
     public Sprite starSprite;
     public Sprite yellowStarSprite;
 
+    // schedule
+    public Button scheduleButton;
+    public GameObject schedulePanel;
+    public Button closeSchedulePanel;
+    public Button addClass;
+
     void Start()
     {
         filterListPanel.SetActive(false);
@@ -31,7 +37,15 @@ public class SearchScript : MonoBehaviour
         filterButton.onClick.AddListener(() => enableFilter());
         closeFilterList.onClick.AddListener(() => closeFilter());
         filterFavorite.onClick.AddListener(() => Favorite());
+    
+        schedulePanel.SetActive(false);
+        scheduleButton.onClick.AddListener(() => enableSchedule());
+        closeSchedulePanel.onClick.AddListener(() => closeSchedule());
     }
+
+   
+   
+
 
     private void InitializeRoomButtons()
     {
@@ -54,11 +68,26 @@ public class SearchScript : MonoBehaviour
         }
     }
 
+    void AddClass() {
+        // if ()
+    }
     void enableFilter(){
+        schedulePanel.SetActive(false);
         filterListPanel.SetActive(true);
     }
     void closeFilter(){
         filterListPanel.SetActive(false);
+    }
+
+     private void enableSchedule()
+    {
+        schedulePanel.SetActive(true);
+        filterListPanel.SetActive(false);
+    }
+
+     private void closeSchedule()
+    {
+        schedulePanel.SetActive(false);
     }
 
     // Update is called once per frame
