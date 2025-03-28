@@ -241,7 +241,7 @@ private IEnumerator GenerateButtonsDelayed(GameObject startingLocation)
                     int turnDirection = 0;
                     float turnDistance;
                     (turnDirection, turnDistance) = turn();
-                    nextTurnTMP.text = turnDistance.ToString("F1") + " m";
+                    //nextTurnTMP.text = turnDistance.ToString("F1") + " m";
                     if (turnDirection == 1)
                     {
                         greenUIImage.sprite = rightArrow;
