@@ -5,6 +5,7 @@ using TMPro;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.EventSystems;
+using UnityEngine.AI;
 
 
 public class findRoomScript : MonoBehaviour
@@ -95,14 +96,18 @@ public class findRoomScript : MonoBehaviour
 
         //get distances
 
-        foreach (string roomName in roomNames){
-            roomObjects.Add(GameObject.Find(roomName));
-        }
+        foreach (string roomName in roomNames)
+    {
+        GameObject roomObject = GameObject.Find(roomName);
+        if (roomObject != null)
+        {
+            Vector3 endPos = roomObject.transform.position;
 
-        foreach (GameObject roomObject in roomObjects){
-            float distance = Vector3.Distance(startingLocation.transform.position, roomObject.transform.position);
-            roomDistances.Add(roomObject.name,distance);
+            float navMeshDistance = CalculateNavMeshPathDistance(startingLocation.transform.position, endPos);
+
+            roomDistances.Add(roomName, navMeshDistance);
         }
+    }
 
 
         // float Yoffset = -116f;
@@ -313,4 +318,30 @@ public class findRoomScript : MonoBehaviour
             starImage.sprite = starSprite;
         }
     }
+
+    private float CalculateNavMeshPathDistance(Vector3 startPoint, Vector3 endPoint)
+{
+    NavMeshPath path = new NavMeshPath();
+
+    float distance = 0.0f;
+    if (NavMesh.CalculatePath(startPoint, endPoint, NavMesh.AllAreas, path))
+    {
+        
+        if (path.status == NavMeshPathStatus.PathComplete)
+        {
+            distance = 0.0f;
+
+            if (path.corners.Length > 1)
+            {
+                for (int i = 0; i < path.corners.Length - 1; i++)
+                {
+                    float segmentDistance = Vector3.Distance(path.corners[i], path.corners[i + 1]);
+                    distance += segmentDistance;
+                }
+            }
+        }
+    }
+    return distance;
+}
+
 }
