@@ -264,7 +264,7 @@ public class SearchScript : MonoBehaviour
             days.Add(Days.Friday);
         }
 
-        sm.AddSchedule(days, startTime.text, endTime.text);
+        sm.AddSchedule(className.text, days, startTime.text, endTime.text);
     }
 
 }

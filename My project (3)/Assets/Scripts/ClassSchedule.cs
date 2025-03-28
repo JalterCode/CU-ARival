@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum Days {
@@ -14,11 +15,13 @@ public enum Days {
 
 public class ClassSchedule
 {
+    private string className;
     private List<Days> days;
     private string startTime;
     private string endTime;
     
-    public ClassSchedule(List<Days> days, string startTime, string endTime) {
+    public ClassSchedule(string className, List<Days> days, string startTime, string endTime) {
+        this.className = className;
         this.days = days;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -48,5 +51,13 @@ public class ClassSchedule
 
     public void SetEndTime(string endTime) {
         this.endTime = endTime;
+    }
+
+    public string GetClassName() {
+        return className;
+    }
+
+    public void setClassName(string className) {
+        this.className = className;
     }
 }

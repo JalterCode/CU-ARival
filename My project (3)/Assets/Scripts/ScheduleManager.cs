@@ -15,9 +15,9 @@ public class ScheduleManager
     }
 
     // Add a new schedule entry
-    public void AddSchedule(List<Days> days, string startTime, string endTime)
+    public void AddSchedule(string className, List<Days> days, string startTime, string endTime)
     {
-        ClassSchedule newSchedule = new ClassSchedule(days, startTime, endTime);
+        ClassSchedule newSchedule = new ClassSchedule(className, days, startTime, endTime);
         schedules.Add(newSchedule);
         Debug.Log($"{startTime} - {endTime}");
         SaveSchedule();
@@ -82,12 +82,14 @@ public class ScheduleManager
     [System.Serializable]
     private class SerializableSchedule
     {
+        public string className;
         public int[] days;
         public string startTime;
         public string endTime;
 
         public SerializableSchedule(ClassSchedule schedule)
         {
+            className = schedule.GetClassName();
             days = schedule.GetDays().ConvertAll(day => (int)day).ToArray();
             startTime = schedule.GetStartTime();
             endTime = schedule.GetEndTime();
@@ -100,7 +102,7 @@ public class ScheduleManager
             {
                 dayList.Add((Days)day);
             }
-            return new ClassSchedule(dayList, startTime, endTime);
+            return new ClassSchedule(className, dayList, startTime, endTime);
         }
     }
 
