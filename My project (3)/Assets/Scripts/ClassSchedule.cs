@@ -12,7 +12,7 @@ public enum Days {
     Saturday = 6
 }
 
-public class ClassSchedule : MonoBehaviour
+public class ClassSchedule
 {
     private List<Days> days;
     private string startTime;

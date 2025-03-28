@@ -2,14 +2,15 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class ScheduleManager : MonoBehaviour
+public class ScheduleManager
 {
     private List<ClassSchedule> schedules = new List<ClassSchedule>();
-    private string filePath;
+    private string filePath = Application.persistentDataPath + "/schedule.json";
 
-    void Start()
+    public ScheduleManager()
     {
         filePath = Application.persistentDataPath + "/schedule.json";
+        Debug.Log($"File path: {filePath}");
         LoadSchedule();
     }
 
@@ -18,6 +19,7 @@ public class ScheduleManager : MonoBehaviour
     {
         ClassSchedule newSchedule = new ClassSchedule(days, startTime, endTime);
         schedules.Add(newSchedule);
+        Debug.Log($"{startTime} - {endTime}");
         SaveSchedule();
         Debug.Log("Added new schedule!");
     }
@@ -31,8 +33,10 @@ public class ScheduleManager : MonoBehaviour
             serializableSchedules.Add(new SerializableSchedule(schedule));
         }
 
-        string json = JsonUtility.ToJson(new ScheduleWrapper { schedules = serializableSchedules }, true);
-        File.WriteAllText(filePath, json);
+        string jsonString = JsonUtility.ToJson(new ScheduleWrapper { schedules = serializableSchedules }, true);
+        Debug.Log("GJ");
+        File.WriteAllText(filePath, jsonString);
+        DisplaySchedules();
         Debug.Log("Schedule saved!");
     }
 
@@ -43,7 +47,7 @@ public class ScheduleManager : MonoBehaviour
         {
             string json = File.ReadAllText(filePath);
             ScheduleWrapper loadedData = JsonUtility.FromJson<ScheduleWrapper>(json);
-
+            
             if (loadedData != null && loadedData.schedules != null)
             {
                 schedules.Clear();
@@ -54,6 +58,13 @@ public class ScheduleManager : MonoBehaviour
 
                 Debug.Log("Schedule loaded!");
             }
+        } else {
+            // File doesn't exist, create it with an empty schedule structure
+            ScheduleWrapper emptyScheduleWrapper = new ScheduleWrapper { schedules = new List<SerializableSchedule>() };
+            string emptyJson = JsonUtility.ToJson(emptyScheduleWrapper, true);
+            File.WriteAllText(filePath, emptyJson);
+
+            Debug.Log("File not found, creating new schedule file!");
         }
     }
 

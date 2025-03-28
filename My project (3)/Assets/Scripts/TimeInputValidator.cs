@@ -66,7 +66,7 @@ public class TimeInputValidator : MonoBehaviour
         
         if ((classN.Length != 0) && IsValidTime(startT) && IsValidTime(endT)) {
             AddClass.interactable = true;
-            Debug.Log("GAY");
+
         } else {
             AddClass.interactable = false;
         }
