@@ -50,7 +50,7 @@ public class SearchScript : MonoBehaviour
     private bool thursdayToggle = false;
     private bool fridayToggle = false;
 
-
+    public Button calendar; 
     void Start()
     {
         filterListPanel.SetActive(false);
@@ -73,9 +73,15 @@ public class SearchScript : MonoBehaviour
         Thu.onClick.AddListener(() => Thursday());
         Fri.onClick.AddListener(() => Friday());
         submitButton.onClick.AddListener(() => submit());
+        calendar.onClick.AddListener(() => Calendar());
     }
 
-    
+    private void Calendar()
+    {
+        
+        schedulePanel.SetActive(true);
+        
+    }
 
     private void InitializeRoomButtons()
     {
