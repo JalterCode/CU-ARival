@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public enum Days {
+    //days on the week
     Sunday = 0,
     Monday = 1,
     Tuesday = 2,

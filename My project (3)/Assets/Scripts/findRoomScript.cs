@@ -10,14 +10,6 @@ using UnityEngine.AI;
 
 public class findRoomScript : MonoBehaviour
 {
-    // public Button Button5201;
-    // public Button Button5107;
-    // public Button Button5111;
-    // public Button Button5105;
-    // public Button Button5101;
-    // public Button Button6107;
-    //public TMP_Dropdown dropDown;
-
     private SortedDictionary<string, Button> roomButtons = new SortedDictionary<string, Button>();
     [SerializeField] private RectTransform panel;
     public Button buttonPrefab;
@@ -40,39 +32,18 @@ public class findRoomScript : MonoBehaviour
     {
 
         Debug.Log("Find room script");
-        // if (Button5201 == null)
-        // {
-        //     Debug.LogError("Button5201 is not assigned!");
-        //     return;
-        // }
-
-        // if (Button5107 == null)
-        // {
-        //     Debug.LogError("Button5107 is not assigned!");
-        //     return;
-        // }
-
-        // Button5201.onClick.AddListener(() => OnNavigateButtonClicked(Button5201));
-        // Button5107.onClick.AddListener(() => OnNavigateButtonClicked(Button5107));
-        // Button5111.onClick.AddListener(() => OnNavigateButtonClicked(Button5111));
-        // Button5105.onClick.AddListener(() => OnNavigateButtonClicked(Button5105));
-        // Button5101.onClick.AddListener(() => OnNavigateButtonClicked(Button5101));
-        // Button6107.onClick.AddListener(() => OnNavigateButtonClicked(Button6107));
-        
         if (sortButton != null)
         {
+            //sort on startup
             sortButton.onClick.AddListener(SortRoomsByFloor);
         }
         else
         {
-            Debug.LogWarning("Sort button not assigned in findRoomScript!");
+            Debug.LogWarning("Sort button not assigned in findRoomScript");
         }
     }
 
     public void GenerateButtons(GameObject startingLocation) { 
-        Debug.Log("Hello?");
-
-
         List<Transform> roomParents = GetFloorLocations();
         List<string> roomNames = new List<string>();
         List<GameObject> roomObjects = new List<GameObject>();
@@ -97,7 +68,6 @@ public class findRoomScript : MonoBehaviour
         }
 
         //get distances
-
         foreach (string roomName in roomNames)
     {
         GameObject roomObject = GameObject.Find(roomName);
